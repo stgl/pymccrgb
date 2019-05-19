@@ -4,27 +4,36 @@
 [![Documentation Status](https://readthedocs.org/projects/pymccrgb/badge/?version=latest)](https://pymccrgb.readthedocs.io/en/latest/?badge=latest)
 
 **pymccrgb** is a Python utility for multiscale curvature classification of
-point clouds with color features. It is intended for users in geomorphology,
-forest ecology, or planetary science who wish to classify ground points in
-color point cloud datasets from structure from motion, stereo photogrammetry,
-or multi-spectral lidar.
+point clouds with color features. It extends a popular classification method
+(MCC lidar) [0, 1] to point cloud datasets with multiple color channels,
+commonly produced in drone surveys. It can be used to extract points from the
+ground surface and vegetation in photogrammetric data for which multiple laser
+returns are not available.
+
+It is intended for scientists in geomorphology, forest ecology, or planetary science
+who wish to classify points in datasets from structure from motion,
+stereo photogrammetry, or multi-spectral lidar.
 
 ## Getting started
 
 ### Installation
 
-It is best to [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html):
+It is best to [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install this package:
 
 ```bash
 git clone https://github.com/rmsare/pymccrgb
 cd pymccrgb
-conda create -n pymcc -f environment.yaml
+conda create -n pymcc -f environment.yml
 conda activate pymcc
 ```
 
 ## Examples
 
+### Microtopography under tree cover
 
+### Removing bushes from a UAV-SFM survey of an earthquake fault scarp
+
+### Rangeland vegetation height
 
 ## Documentation
 
