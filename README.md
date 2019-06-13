@@ -72,4 +72,4 @@ Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your 
 
 This work is licensed under the MIT License (see [LICENSE](LICENSE)). It also
 incorporates a wrapper for the [`mcc-lidar` implementation](https://sourceforge.net/p/mcclidar),
-which is distributed under the Apache license.
+which is distributed under the Apache license (see [pymcc/LICENSE.txt](pymcc/LICENSE.txt)).
