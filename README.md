@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/rmsare/pymccrgb.svg?branch=master)](https://travis-ci.com/rmsare/pymccrgb)
 [![Documentation Status](https://readthedocs.org/projects/pymccrgb/badge/?version=latest)](https://pymccrgb.readthedocs.io/en/latest/?badge=latest)
 
-**pymccrgb** is a Python utility for multiscale curvature classification of
+**pymccrgb** is a Python package for multiscale curvature classification of
 point clouds with color features. It extends a popular classification method
 ([MCC lidar](https://sourceforge.net/p/mcclidar/wiki/Home/)) [[0]](#references) to point cloud datasets with multiple color channels,
 commonly produced in drone surveys. It can be used to extract points from the
@@ -61,6 +61,7 @@ If you would like to add a feature or fix a bug, please fork the repository, cre
 Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your question.
 
 ## References
+
 [0] Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classifying discrete return LiDAR in forested environments. IEEE Transactions on Geoscience and Remote Sensing, 45(4), 1029-1038 [doi](https://doi.org/10.1109/TGRS.2006.890412) 
 
 [1] 
@@ -68,5 +69,7 @@ Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your 
 [2] 
 
 ## License
-This work is licensed under the MIT License (see [LICENSE](LICENSE)).
 
+This work is licensed under the MIT License (see [LICENSE](LICENSE)). It also
+incorporates a wrapper for the [`mcc-lidar` implementation](https://sourceforge.net/p/mcclidar),
+which is distributed under the Apache license.
