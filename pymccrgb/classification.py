@@ -37,7 +37,6 @@ def make_sgd_pipeline(X_train, y_train,
 
     Returns:
         A trained pipeline composed of an RBF transformer and SGD classifier
-
     """
     estimators = [('rbf', RBFSampler(n_components=n_components, gamma=gamma)),
                   ('clf', SGDClassifier(alpha=alpha, n_jobs=n_jobs,
