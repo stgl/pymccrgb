@@ -1,6 +1,7 @@
 alabaster
 apidoc
 sphinxcontrib.apidoc
+sphinx_rtd_theme
 ipython
 jinja2
 numpydoc
