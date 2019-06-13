@@ -19,6 +19,8 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
     elevation of each data point to an interpolated surface. If downsample is
     True, a down-sampled version of the data coordinates will be used when
     interpolating (currently not implemented).
+    
+    Based on MCC algorithm implemented in [1, 2].
 
     Args:
         data: A n x 3 (or more) data matrix with rows [x, y, z, ...]
@@ -32,6 +34,12 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 
     Returns:
         An n x 1 array of point class labels. 1 is ground, and 0 is nonground.
+
+    References:
+        [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+            algorithm for classifying discrete return LiDAR in forested
+            environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+        [2] https://sourceforge.net/p/mcclidar
     """
     xyz = data[:, 0:3]
     height = calculate_excess_height(xyz.copy(order='C'), scale)
@@ -50,6 +58,8 @@ def mcc(data,
     scales. The algorithm iterates at each scale until a convergence threshold
     is reached based on the percentage of points classified as ground. Only
     ground points are retained after each iteration.
+    
+    Based on MCC algorithm implemented in [1, 2].
 
     Args:
         data: A n x d data matrix with rows [x, y, z, ...]
@@ -64,6 +74,12 @@ def mcc(data,
 
     Returns:
         An m x d array of ground points
+
+    References:
+        [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+            algorithm for classifying discrete return LiDAR in forested
+            environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+        [2] https://sourceforge.net/p/mcclidar
     """
 
     for scale, tol, thresh in zip(scales, tols, threshs):
