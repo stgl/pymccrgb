@@ -1,4 +1,4 @@
-""" MCC lidar classification with color clustering """
+""" Multiscale curvature classification of ground points with color updates """
 
 import numpy as np
 
