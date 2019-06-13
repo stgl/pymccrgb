@@ -8,10 +8,19 @@ from scipy.spatial import cKDTree
 from shapely.geometry import shape, Polygon 
 
 
-def crop_to_polygon(src, filename, dest=None):
+def crop_to_polygon(src, poly_filename, dest=None):
+    """ Crops an input point cloud to a polygon
+
+    Args:
+        src: The filename of the pointcloud to crop
+        poly: The filename of the cropping polygon
+        dest: The optional output filename. Default is to append "_crop" to the
+            source filename
+    """
+
     if dest is None:
         dest = src.replace('.', '_crop.')
-    features = fiona.open(filename)
+    features = fiona.open(poly)
     geom = shape(features[0]['geometry'])
     wkt = Polygon(geom.exterior.coords).wkt
     command = ['pdal', 'translate', '-f', 'filters.crop',
@@ -20,6 +29,7 @@ def crop_to_polygon(src, filename, dest=None):
 
 
 def intersect_rows(arr1, arr2):
+    """ Returns a binary mask of the rows in arr1 that are in arr2 """
     mask = np.zeros((arr2.shape[0],), dtype=bool)
     dict1 = {tuple(row): i for i, row in enumerate(arr1)}
     for i, row in enumerate(arr2):
@@ -29,7 +39,7 @@ def intersect_rows(arr1, arr2):
 
 
 def loadtxt_rows(fn, usecols, userows=None, nrows=None):
-    """ Load specified rows and columns from text file as numpy array """
+    """ Loads specified rows and columns from text file as numpy array """
 
     if userows is None and nrows is not None:
         with open(fn, 'r') as f:
@@ -50,6 +60,7 @@ def loadtxt_rows(fn, usecols, userows=None, nrows=None):
 
 
 def point_grid(x_min, x_max, y_min, y_max, dx, dy=None):
+    """ Generates a grid of points within a bounding box """
     if dy is None:
         dy = dx
     x = np.arange(x_min, x_max + dx, dx)
@@ -59,15 +70,25 @@ def point_grid(x_min, x_max, y_min, y_max, dx, dy=None):
     return points
 
 
-def sample_point_cloud(source, query_points):
+def sample_point_cloud(source, target):
+    """ Resamples a source point cloud at the coordinates of a target points
+
+        Uses the nearest point in the target point cloud to the source point
+    """
     tree = cKDTree(source[:, 0:2])
-    dist, idx = tree.query(query_points, n_jobs=-1)
-    output = np.hstack([query_points, source[idx, 2].reshape((len(idx), 1))])
+    dist, idx = tree.query(target, n_jobs=-1)
+    output = np.hstack([target, source[idx, 2].reshape((len(idx), 1))])
     return output
 
 
 def equal_sample(X, y, size=100, seed=None):
-    """ Assumes y contains discrete labels 0, ..., ymax """
+    """ Takes a sample of equal number of feature vectors from each input class
+
+    Assumes y contains discrete labels 0, ..., ymax
+
+    Raises:
+        A ValueError if there are insufficient data in a particular class
+    """
 
     if seed is not None:
         np.random.seed(seed)
@@ -89,7 +110,13 @@ def equal_sample(X, y, size=100, seed=None):
 
 
 def stratified_sample(X, y, size=100, seed=None):
-    """ Assumes y contains discrete labels 0, ..., ymax """
+    """ Takes a stratified sample of feature vectors from each input class
+
+    Assumes y contains discrete labels 0, ..., ymax
+
+    Raises:
+        A ValueError if there are insufficient data in a particular class
+    """
 
     if seed is not None:
         np.random.seed(seed)
