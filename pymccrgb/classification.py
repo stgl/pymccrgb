@@ -1,7 +1,5 @@
 """ Utilities for updating classifcation of point clouds """
 
-import numpy as np
-
 from sklearn.kernel_approximation import RBFSampler
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
