@@ -2,15 +2,13 @@
 
 import numpy as np
 
-from copy import copy
-
 from sklearn.kernel_approximation import RBFSampler
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 
 
 def make_sgd_pipeline(X_train, y_train,
-                      n_components=1000,
+                      n_components=100,
                       gamma=0.01,
                       alpha=0.0001,
                       max_iter=10,
