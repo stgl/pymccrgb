@@ -2,11 +2,8 @@
 
 import numpy as np
 
-from copy import copy
-
-from classification import make_sgd_pipeline 
+from classification import make_sgd_pipeline
 from features import calculate_color_features
-from plotting import plot_results
 from utils import equal_sample
 
 from pymcc_lidar import pymcc_singlepass as calculate_excess_height
@@ -19,7 +16,7 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
     elevation of each data point to an interpolated surface. If downsample is
     True, a down-sampled version of the data coordinates will be used when
     interpolating (currently not implemented).
-    
+
     Based on MCC algorithm implemented in [1, 2].
 
     Args:
@@ -58,7 +55,7 @@ def mcc(data,
     scales. The algorithm iterates at each scale until a convergence threshold
     is reached based on the percentage of points classified as ground. Only
     ground points are retained after each iteration.
-    
+
     Based on MCC algorithm implemented in [1, 2].
 
     Args:
@@ -105,7 +102,8 @@ def mcc_rgb(data,
             threshs=[1, 0.1, 0.01],
             training_scales=None,
             training_tols=None,
-            n_train=int(1e5)):
+            n_train=int(1e5),
+            max_iter=20):
     """ Classifies ground points using the MCC-RGB algorithm
 
     Classifies ground and nonground (or "high") points by comparing the
@@ -118,20 +116,24 @@ def mcc_rgb(data,
         data: A n x d data matrix with rows [x, y, z, r, g, b ...]
         scales: The interpolation scales. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
-            mean around each intrpolation point. Defaults to [0.5, 1, 1.5]
-            meters.
-        tols: The height tolerances. Points exceeding the durface by more than
+            mean around each interpolation point. Defaults to [0.5, 1, 1.5]
+            meters. Scale domains are processed in order of increasing scale.
+        tols: The height tolerances. Points exceeding the surface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
         threshs: The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
-        training_scales: The interpolation scales. This defines the resolution of the
-            interpolated surface, which is calculated by a 3 x 3 windowed
-            mean around each intrpolation point. Defaults to [0.5, 1, 1.5]
-            meters.
-        training_tols: The height tolerances. Points exceeding the durface by more than
-            tol units are classified as nonground. Deaults to 0.3 meters.
-        n_train: The number of points to use for training the color classifier
-            Defaults to 1E5
+        training_scales: The training interpolation scales.
+            This defaults to the first scale domain (e.g., 0.5). Both
+            training_scales and training_tols must be specified;
+            otherwise the defaults are used.
+        training_tols: The training relative heights. Defaults to the first
+            height tolerance (e.g., 0.3). Both training_scales and
+            training_tols must be specified; otherwise the defaults are used.
+
+        n_train: The total number of points to use for training the color
+            classifier. Defaults to 1E5.
+        max_iter: Maximum number of iterations in a scale domain.
+            Defaults to 20.
 
     Returns:
         data: An m x d array of ground points
@@ -143,16 +145,20 @@ def mcc_rgb(data,
             updated).
     """
 
-    if training_scales is None:
-        training_scales = scales[0:1]
-
-    if training_tols is None:
+    if training_scales is None or training_tols is None:
         training_tols = tols[0:1]
-     
+        training_scales = scales[0:1]
+    else:
+        scales += training_scales
+        tols += training_tols
+        idx = np.argsort(scales)
+        scales = scales[idx]
+        tols = tols[idx]
+
     for scale, tol, thresh in zip(scales, tols, threshs):
         converged = False
         niter = 0
-        while not converged:
+        while not converged and not reached_max_iter:
             n_points = data.shape[0]
             y = classify_ground_mcc(data, scale, tol)
             n_removed_mcc = np.sum(y == 0)
@@ -161,7 +167,9 @@ def mcc_rgb(data,
             print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
             print('Removed {} nonground points in MCC ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
 
-            if scale == scales[0] and niter == 0:
+            update_step = scale in training_scales and tol in training_tols
+            first_iter = niter == 0
+            if update_step and first_iter:
                 X = calculate_color_features(data)
                 X_train, y_train = equal_sample(X, y, size=int(n_train / 2))
                 pipeline = make_sgd_pipeline(X_train, y_train)
@@ -174,9 +182,11 @@ def mcc_rgb(data,
                 print('Removed {} nonground points in update step ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
                 
             ground = y == 1
+            data = data[ground, :]
+
             n_removed = np.sum(y == 0)
             converged = 100 * (n_removed / n_points) < thresh
+            reached_max_iter = niter >= max_iter
 
-            data = data[ground, :]
             niter += 1
     return data, updated
