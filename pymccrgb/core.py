@@ -47,7 +47,8 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 def mcc(data,
         scales=[0.5, 1, 1.5],
         tols=[0.3, 0.3, 0.3],
-        threshs=[1, 0.1, 0.01]):
+        threshs=[1, 0.1, 0.01],
+        verbose=False):
     """ Classifies ground points using the MCC algorithm
 
     Classifies ground and nonground (or "high") points by comparing the
@@ -89,9 +90,12 @@ def mcc(data,
             n_removed = np.sum(y == 0)
             converged = 100 * (n_removed / n_points) < thresh
             data = data[ground, :]
-            print('-' * 20)
-            print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
-            print('Removed {} nonground points ({:.2f} %)'.format(n_removed, 100 * (n_removed / n_points)))
+
+            if verbose:
+                print('-' * 20)
+                print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
+                print('Removed {} nonground points ({:.2f} %)'.format(n_removed, 100 * (n_removed / n_points)))
+
             niter += 1
     return data
 
@@ -103,12 +107,13 @@ def mcc_rgb(data,
             training_scales=None,
             training_tols=None,
             n_train=int(1e5),
-            max_iter=20):
+            max_iter=20,
+            verbose=False):
     """ Classifies ground points using the MCC-RGB algorithm
 
     Classifies ground and nonground (or "high") points by comparing the
     elevation of each data point to an interpolated surface at user-defined
-    scales. The algorithm proceeds as MCC (see the mcc() documentation), except 
+    scales. The algorithm proceeds as MCC (see the mcc() documentation), except
     that ground points are reclassified based on their color similarity to
     nonground points.
 
@@ -155,6 +160,8 @@ def mcc_rgb(data,
         scales = scales[idx]
         tols = tols[idx]
 
+    reached_max_iter = False
+
     for scale, tol, thresh in zip(scales, tols, threshs):
         converged = False
         niter = 0
@@ -163,9 +170,10 @@ def mcc_rgb(data,
             y = classify_ground_mcc(data, scale, tol)
             n_removed_mcc = np.sum(y == 0)
 
-            print('-' * 20)
-            print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
-            print('Removed {} nonground points in MCC ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
+            if verbose:
+                print('-' * 20)
+                print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
+                print('Removed {} nonground points in MCC ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
 
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
@@ -179,8 +187,9 @@ def mcc_rgb(data,
                 updated = (y == 1) & (y_pred == 0)
                 y[updated] = 0
 
-                print('Removed {} nonground points in update step ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
-                
+                if verbose:
+                    print('Removed {} nonground points in update step ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
+
             ground = y == 1
             data = data[ground, :]
 
