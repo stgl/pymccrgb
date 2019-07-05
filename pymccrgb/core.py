@@ -21,11 +21,14 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 
     Args:
         data: A n x 3 (or more) data matrix with rows [x, y, z, ...]
+
         scale: The interpolation scale. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each intrpolation point.
+
         tol: The height tolerance. Points exceeding the durface by more than
             tol units are classified as nonground
+
         downsample: If True, use a downsampled dataset for interpolation.
             Not implemented.
 
@@ -121,29 +124,36 @@ def mcc_rgb(data,
 
     Args:
         data: A n x d data matrix with rows [x, y, z, r, g, b ...]
+
         scales: The interpolation scales. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each interpolation point. Defaults to [0.5, 1, 1.5]
             meters. Scale domains are processed in order of increasing scale.
+
         tols: The height tolerances. Points exceeding the surface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
+
         threshs: The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
+
         training_scales: The training interpolation scales.
             This defaults to the first scale domain (e.g., 0.5). Both
             training_scales and training_tols must be specified;
             otherwise the defaults are used.
+
         training_tols: The training relative heights. Defaults to the first
             height tolerance (e.g., 0.3). Both training_scales and
             training_tols must be specified; otherwise the defaults are used.
 
         n_train: The total number of points to use for training the color
             classifier. Defaults to 1E5.
+
         max_iter: Maximum number of iterations in a scale domain.
             Defaults to 20.
 
     Returns:
         data: An m x d array of ground points
+
         updated: An n x 1 array of labels indicating whether the point was
             updated in an MCC-RGB step. If there are multiple training scales,
             this will be the index of the scale and tolerance range defined
