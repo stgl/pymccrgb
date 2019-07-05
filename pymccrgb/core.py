@@ -93,7 +93,9 @@ def mcc(data,
 
             if verbose:
                 print('-' * 20)
-                print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
+                print('MCC iteration')
+                print('-' * 20)
+                print('Scale: {:.2f}, Relative height: {:.1e}, iter: {}'.format(scale, tol, niter))
                 print('Removed {} nonground points ({:.2f} %)'.format(n_removed, 100 * (n_removed / n_points)))
 
             niter += 1
