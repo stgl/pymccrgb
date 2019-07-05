@@ -172,8 +172,10 @@ def mcc_rgb(data,
 
             if verbose:
                 print('-' * 20)
-                print('SD: {:.2f}, tol: {:.1e}, iter: {}'.format(scale, tol, niter))
-                print('Removed {} nonground points in MCC ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
+                print('MCC step')
+                print('-' * 20)
+                print('Scale: {:.2f}, Relative height: {:.1e}, iter: {}'.format(scale, tol, niter))
+                print('Removed {} nonground points ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
 
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
@@ -188,7 +190,11 @@ def mcc_rgb(data,
                 y[updated] = 0
 
                 if verbose:
-                    print('Removed {} nonground points in update step ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
+                    print('-' * 20)
+                    print('Classification update step')
+                    print('-' * 20)
+                    print('Scale: {}, Relative height: {}'.format(scale, tol))
+                    print('Removed {} nonground points ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
 
             ground = y == 1
             data = data[ground, :]
