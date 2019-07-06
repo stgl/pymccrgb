@@ -6,13 +6,13 @@
 **pymccrgb** is a Python package for multiscale curvature classification of
 point clouds with color features. It extends a popular classification method
 ([MCC lidar](https://sourceforge.net/p/mcclidar/wiki/Home/)) [[0]](#references) to point cloud datasets with multiple color channels, such as those
-commonly produced in photogrammetric surveys using a drone or other platforms. It can be used to extract points from the
+commonly produced in surveys using drone photography or other platforms. It can be used to extract points from the
 ground surface and higher vegetation in data for which multiple laser
 returns are not available.
 
 It is intended for scientists in geomorphology, forest ecology, or planetary science
-who wish to classify points in structure from motion,
-stereo photogrammetry, or multi-spectral lidar datasets.
+who wish to classify points in datasets produced by structure from motion photogrammetry,
+stereo photogrammetry, or multi-spectral lidar scanning.
 
 ## Getting started
 
