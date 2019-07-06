@@ -11,7 +11,7 @@ ground surface and higher vegetation in data for which multiple laser
 returns are not available.
 
 It is intended for scientists in geomorphology, forest ecology, or planetary science
-who wish to classify points structure from motion,
+who wish to classify points in structure from motion,
 stereo photogrammetry, or multi-spectral lidar datasets.
 
 ## Getting started
