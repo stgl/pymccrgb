@@ -41,6 +41,7 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
             environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
         [2] https://sourceforge.net/p/mcclidar
     """
+
     if downsample:
         raise NotImplementedError('Downsampling has not been implemented.')
 
