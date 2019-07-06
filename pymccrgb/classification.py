@@ -5,13 +5,16 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 
 
-def make_sgd_pipeline(X_train, y_train,
-                      n_components=100,
-                      gamma=0.01,
-                      alpha=0.0001,
-                      max_iter=10,
-                      n_jobs=-1,
-                      **kwargs):
+def make_sgd_pipeline(
+    X_train,
+    y_train,
+    n_components=100,
+    gamma=0.01,
+    alpha=0.0001,
+    max_iter=10,
+    n_jobs=-1,
+    **kwargs
+):
     """ Returns an sklearn Pipeline for SGD classification with an RBF kernel
 
     Args:
@@ -34,9 +37,10 @@ def make_sgd_pipeline(X_train, y_train,
     Returns:
         A trained pipeline composed of an RBF transformer and SGD classifier
     """
-    estimators = [('rbf', RBFSampler(n_components=n_components, gamma=gamma)),
-                  ('clf', SGDClassifier(alpha=alpha, n_jobs=n_jobs,
-                                        max_iter=max_iter, **kwargs))]
+    estimators = [
+        ("rbf", RBFSampler(n_components=n_components, gamma=gamma)),
+        ("clf", SGDClassifier(alpha=alpha, n_jobs=n_jobs, max_iter=max_iter, **kwargs)),
+    ]
     pipeline = Pipeline(estimators)
     pipeline.fit(X_train, y_train)
     return pipeline
