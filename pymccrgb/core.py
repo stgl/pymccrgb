@@ -43,19 +43,21 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
     """
 
     if downsample:
-        raise NotImplementedError('Downsampling has not been implemented.')
+        raise NotImplementedError("Downsampling has not been implemented.")
 
     xyz = data[:, 0:3]
-    height = calculate_excess_height(xyz.copy(order='C'), scale)
-    y = (height < tol)  # 0 = nonground, 1 = ground
+    height = calculate_excess_height(xyz.copy(order="C"), scale)
+    y = height < tol  # 0 = nonground, 1 = ground
     return y
 
 
-def mcc(data,
-        scales=[0.5, 1, 1.5],
-        tols=[0.3, 0.3, 0.3],
-        threshs=[1, 0.1, 0.01],
-        verbose=False):
+def mcc(
+    data,
+    scales=[0.5, 1, 1.5],
+    tols=[0.3, 0.3, 0.3],
+    threshs=[1, 0.1, 0.01],
+    verbose=False,
+):
     """ Classifies ground points using the MCC algorithm
 
     Classifies ground and nonground (or "high") points by comparing the
@@ -99,25 +101,35 @@ def mcc(data,
             data = data[ground, :]
 
             if verbose:
-                print('-' * 20)
-                print('MCC iteration')
-                print('-' * 20)
-                print('Scale: {:.2f}, Relative height: {:.1e}, iter: {}'.format(scale, tol, niter))
-                print('Removed {} nonground points ({:.2f} %)'.format(n_removed, 100 * (n_removed / n_points)))
+                print("-" * 20)
+                print("MCC iteration")
+                print("-" * 20)
+                print(
+                    "Scale: {:.2f}, Relative height: {:.1e}, iter: {}".format(
+                        scale, tol, niter
+                    )
+                )
+                print(
+                    "Removed {} nonground points ({:.2f} %)".format(
+                        n_removed, 100 * (n_removed / n_points)
+                    )
+                )
 
             niter += 1
     return data
 
 
-def mcc_rgb(data,
-            scales=[0.5, 1, 1.5],
-            tols=[0.3, 0.3, 0.3],
-            threshs=[1, 0.1, 0.01],
-            training_scales=None,
-            training_tols=None,
-            n_train=int(1e5),
-            max_iter=20,
-            verbose=False):
+def mcc_rgb(
+    data,
+    scales=[0.5, 1, 1.5],
+    tols=[0.3, 0.3, 0.3],
+    threshs=[1, 0.1, 0.01],
+    training_scales=None,
+    training_tols=None,
+    n_train=int(1e5),
+    max_iter=20,
+    verbose=False,
+):
     """ Classifies ground points using the MCC-RGB algorithm
 
     Classifies ground and nonground (or "high") points by comparing the
@@ -187,11 +199,19 @@ def mcc_rgb(data,
 
             if verbose:
                 n_removed_mcc = np.sum(y == 0)
-                print('-' * 20)
-                print('MCC step')
-                print('-' * 20)
-                print('Scale: {:.2f}, Relative height: {:.1e}, iter: {}'.format(scale, tol, niter))
-                print('Removed {} nonground points ({:.2f} %)'.format(n_removed_mcc, 100 * (n_removed_mcc / n_points)))
+                print("-" * 20)
+                print("MCC step")
+                print("-" * 20)
+                print(
+                    "Scale: {:.2f}, Relative height: {:.1e}, iter: {}".format(
+                        scale, tol, niter
+                    )
+                )
+                print(
+                    "Removed {} nonground points ({:.2f} %)".format(
+                        n_removed_mcc, 100 * (n_removed_mcc / n_points)
+                    )
+                )
 
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
@@ -208,11 +228,15 @@ def mcc_rgb(data,
 
                 if verbose:
                     n_removed_clf = np.sum((y == 1) & (y_pred == 0))
-                    print('-' * 20)
-                    print('Classification update step')
-                    print('-' * 20)
-                    print('Scale: {}, Relative height: {}'.format(scale, tol))
-                    print('Removed {} nonground points ({:.2f} %)'.format(n_removed_clf, 100 * (n_removed_clf / n_points)))
+                    print("-" * 20)
+                    print("Classification update step")
+                    print("-" * 20)
+                    print("Scale: {}, Relative height: {}".format(scale, tol))
+                    print(
+                        "Removed {} nonground points ({:.2f} %)".format(
+                            n_removed_clf, 100 * (n_removed_clf / n_points)
+                        )
+                    )
 
             ground = y == 1
             data = data[ground, :]

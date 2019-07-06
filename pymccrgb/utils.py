@@ -5,7 +5,7 @@ import numpy as np
 import subprocess
 
 from scipy.spatial import cKDTree
-from shapely.geometry import shape, Polygon 
+from shapely.geometry import shape, Polygon
 
 
 def crop_to_polygon(src, poly_filename, dest=None):
@@ -19,12 +19,21 @@ def crop_to_polygon(src, poly_filename, dest=None):
     """
 
     if dest is None:
-        dest = src.replace('.', '_crop.')
+        dest = src.replace(".", "_crop.")
     features = fiona.open(poly)
-    geom = shape(features[0]['geometry'])
+    geom = shape(features[0]["geometry"])
     wkt = Polygon(geom.exterior.coords).wkt
-    command = ['pdal', 'translate', '-f', 'filters.crop',
-               '-i', src, '-o', dest, '--filters.crop.polygon=' + wkt]
+    command = [
+        "pdal",
+        "translate",
+        "-f",
+        "filters.crop",
+        "-i",
+        src,
+        "-o",
+        dest,
+        "--filters.crop.polygon=" + wkt,
+    ]
     subprocess.check_output(command)
 
 
@@ -42,17 +51,17 @@ def loadtxt_rows(fn, usecols, userows=None, nrows=None):
     """ Loads specified rows and columns from text file as numpy array """
 
     if userows is None and nrows is not None:
-        with open(fn, 'r') as f:
+        with open(fn, "r") as f:
             for i, s in enumerate(f):
                 pass
         nlines = i + 1
         userows = np.random.choice(nlines, size=nrows)
 
     data = []
-    with open(fn, 'r') as f:
+    with open(fn, "r") as f:
         for i, s in enumerate(f):
             if i in userows:
-                row = s.split(',')
+                row = s.split(",")
                 row = np.asarray(row)
                 row = row[usecols]
                 data.append(row)
@@ -98,7 +107,11 @@ def equal_sample(X, y, size=100, seed=None):
     for val in range(y.max() + 1):
         subset = y == val
         if np.sum(subset) < size:
-            raise ValueError('Not enough data in class {}: sample size is {}, but only {} data are available'.format(val, size, np.sum(subset)))
+            raise ValueError(
+                "Not enough data in class {}: sample size is {}, but only {} data are available".format(
+                    val, size, np.sum(subset)
+                )
+            )
         sample = np.random.choice(np.sum(subset), size=size)
         Xs.append(X[subset][sample, :])
         ys.append(np.full((size, 1), fill_value=val))
@@ -129,7 +142,11 @@ def stratified_sample(X, y, size=100, seed=None):
         target_size = int(frac * size)
 
         if np.sum(subset) < target_size:
-            raise ValueError('Not enough data in class {}: sample size is {}, but {} data are available'.format(val, size, np.sum(subset)))
+            raise ValueError(
+                "Not enough data in class {}: sample size is {}, but {} data are available".format(
+                    val, size, np.sum(subset)
+                )
+            )
         sample = np.random.choice(np.sum(subset), size=target_size)
         Xs.append(X[subset][sample, :])
         ys.append(np.full((target_size, 1), fill_value=val))

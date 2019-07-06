@@ -57,6 +57,6 @@ def calculate_color_features(data):
     """
 
     rgb = bytescale(data[:, 3:6]).astype(np.int16)
-    lab = rgb2lab(np.array([rgb]))[0].reshape(-1,3)
-    ngrdvi = calculate_ngrdvi(data).reshape(-1,1)
+    lab = rgb2lab(np.array([rgb]))[0].reshape(-1, 3)
+    ngrdvi = calculate_ngrdvi(data).reshape(-1, 1)
     return np.hstack([lab[:, 1:3], ngrdvi])
