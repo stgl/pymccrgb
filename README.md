@@ -5,14 +5,14 @@
 
 **pymccrgb** is a Python package for multiscale curvature classification of
 point clouds with color features. It extends a popular classification method
-([MCC lidar](https://sourceforge.net/p/mcclidar/wiki/Home/)) [[0]](#references) to point cloud datasets with multiple color channels,
-commonly produced in drone surveys. It can be used to extract points from the
-ground surface and vegetation in photogrammetric data for which multiple laser
+([MCC lidar](https://sourceforge.net/p/mcclidar/wiki/Home/)) [[0]](#references) to point cloud datasets with multiple color channels, such as those
+commonly produced in photogrammetric surveys using a drone or other platforms. It can be used to extract points from the
+ground surface and higher vegetation in data for which multiple laser
 returns are not available.
 
 It is intended for scientists in geomorphology, forest ecology, or planetary science
-who wish to classify points in datasets from structure from motion,
-stereo photogrammetry, or multi-spectral lidar.
+who wish to classify points structure from motion,
+stereo photogrammetry, or multi-spectral lidar datasets.
 
 ## Getting started
 
@@ -29,11 +29,17 @@ conda activate pymcc
 
 ## Examples
 
-### Microtopography under tree cover
+### Topography under tree cover
+
+
 
 ### Removing bushes from a UAV-SFM survey of an earthquake fault scarp
 
+
+
 ### Rangeland vegetation height
+
+
 
 ## Documentation
 
@@ -54,7 +60,6 @@ Feel free to [suggest new features](https://github.com/rmsare/pymccrgb/issues/ne
 ### Pull requests
 
 If you would like to add a feature or fix a bug, please fork the repository, create a feature branch, and [submit a PR](https://github.com/rmsare/pymccrgb/compare) and reference any relevant issues. There are nice guides to contributing with GitHub [here](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/) and [here](https://yourfirstpr.github.io/). Please include tests where appropriate and check that the test suite passes (a Travis build or `pytest pymccrgb/tests`) before submitting.
-
 
 ### Support and questions
 
