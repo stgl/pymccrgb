@@ -155,11 +155,10 @@ def mcc_rgb(data,
         data: An m x d array of ground points
 
         updated: An n x 1 array of labels indicating whether the point was
-            updated in an MCC-RGB step. If there are multiple training scales,
+            updated in an MCC-RGB step. -1 indicates the point's classification
+            was not updated. If there are multiple training scales,
             this will be the index of the scale and tolerance range defined
-            in training_scales and training_tols. (Currently implemented for
-            only one update scale/tolerance, with 0 being not updated, and 1
-            updated).
+            in training_scales and training_tols.
     """
 
     if training_scales is None or training_tols is None:
@@ -172,17 +171,18 @@ def mcc_rgb(data,
         scales = scales[idx]
         tols = tols[idx]
 
+    n_points = data.shape[0]
+    updated = np.full((n_points,), fill_value=-1)
     reached_max_iter = False
 
     for scale, tol, thresh in zip(scales, tols, threshs):
         converged = False
         niter = 0
         while not converged and not reached_max_iter:
-            n_points = data.shape[0]
             y = classify_ground_mcc(data, scale, tol)
-            n_removed_mcc = np.sum(y == 0)
 
             if verbose:
+                n_removed_mcc = np.sum(y == 0)
                 print('-' * 20)
                 print('MCC step')
                 print('-' * 20)
@@ -197,11 +197,13 @@ def mcc_rgb(data,
                 pipeline = make_sgd_pipeline(X_train, y_train)
                 y_pred = pipeline.predict(X)
 
-                n_removed_clf = np.sum((y == 1) & (y_pred == 0))
-                updated = (y == 1) & (y_pred == 0)
-                y[updated] = 0
+                params = list(zip(training_scales, training_tols))
+                update_step_idx = params.index((scale, tol))
+                updated[(y == 1) & (y_pred == 0)] = update_step_idx
+                y[(y == 1) & (y_pred == 0)] = 0
 
                 if verbose:
+                    n_removed_clf = np.sum((y == 1) & (y_pred == 0))
                     print('-' * 20)
                     print('Classification update step')
                     print('-' * 20)
