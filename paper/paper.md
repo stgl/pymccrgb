@@ -6,7 +6,7 @@ tags:
   - lidar data
   - photogrammetric data
   - geomorphology
-  - forest ecology
+  - ecology
   - change detection 
 authors:
   - name: Robert Sare
@@ -29,7 +29,7 @@ sciences, including conventional light detection and ranging (lidar) point
 clouds and very high density photogrammetric datasets produced from
 drone surveys or stereo imaging. Classifying ground and vegetation
 points is an important step in topographic data analysis in geomorphology and
-forest ecology, especially in datasets that increasingly image bushes and other
+environmental science, especially as many datasets increasingly image bushes and other
 subtle features in fine detail.
 
 `pymccrgb` is a Python package for ground point classification
@@ -41,7 +41,7 @@ rangeland ecology. The core implementation uses Numpy, scikit-learn, and the
 PDAL library and it is intended to be easy to extend to other classification
 methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011].
 
-It builds on a popular open source algorithm, multiscale curvature
+This method builds on a popular open source algorithm, multiscale curvature
 classification (MCC) [@evans2007], by training a support vector machine
 classifier using color features of vegetation points and updating the ground
 classification according to color similarity. This new two-stage algorithm,
