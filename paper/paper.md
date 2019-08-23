@@ -1,5 +1,5 @@
 ---
-title: 'pymccrgb: Ground classification of multispectral point cloud data in Python'
+title: 'pymccrgb: A Python package for ground classification of multispectral point cloud data'
 tags:
   - Python
   - point classification
@@ -7,7 +7,6 @@ tags:
   - photogrammetric data
   - geomorphology
   - ecology
-  - change detection 
 authors:
   - name: Robert Sare
     orcid: 0000-0003-3711-6771
