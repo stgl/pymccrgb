@@ -35,10 +35,12 @@ subtle features in fine detail.
 using point cloud data with point colors or other multispectral information.
 It offers Earth scientists studying surface processes or hazards an efficient
 method for extracting land surface points from unclassified point clouds, and
-may be useful for detailed vegetation height measurements in forestry or
+may also be useful for detailed vegetation height measurements in forestry or
 rangeland ecology. The core implementation uses Numpy, scikit-learn, and the
 PDAL library and it is intended to be easy to extend to other classification
-methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011].
+methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011]. It also
+includes a preprocessing script to project point colors from overhead imagery
+onto a georeferenced point cloud using a PDAL filter.
 
 This method builds on a popular open source algorithm, multiscale curvature
 classification (MCC) [@evans2007], by training a support vector machine
