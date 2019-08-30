@@ -1,5 +1,5 @@
 ---
-title: 'pymccrgb: A Python package for ground classification of multispectral point cloud data'
+title: 'pymccrgb: A Python package for ground classification of multispectral point clouds'
 tags:
   - Python
   - point classification
@@ -32,7 +32,7 @@ environmental science, especially as many datasets increasingly image bushes and
 subtle features in fine detail.
 
 `pymccrgb` is a Python package for ground point classification
-using point cloud data with point colors or other multispectral information.
+of point cloud data with point colors or other multispectral information.
 It offers Earth scientists studying surface processes or hazards an efficient
 method for extracting land surface points from unclassified point clouds, and
 may also be useful for detailed vegetation height measurements in forestry or
