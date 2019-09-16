@@ -3,6 +3,8 @@
 import numpy as np
 import pdal
 
+DEFAULT_COLUMNS = ["X", "Y", "Z", "Red", "Green", "Blue"]
+
 
 def load_txt(filename, usecols=range(6), userows=None, nrows=None):
     """ Loads specified rows and columns from text file as numpy array
@@ -43,9 +45,28 @@ def load_txt(filename, usecols=range(6), userows=None, nrows=None):
     return np.array(data)
 
 
-def load_las(filename):
-    raise NotImplementedError("This method has not yet been implemented.")
+def load_las(filename, userows=None, usecols=DEFAULT_COLUMNS):
+    json = '{"pipeline": ["' + filename + '"]}'
+    pipeline = pdal.Pipeline(json)
+    pipeline.validate()
+    pipeline.loglevel = 0
+    nrows = pipeline.execute()
 
+    out = pipeline.arrays[0]
+    if userows is None:
+        data = np.hstack([out[key].reshape(-1, 1) for key in usecols])
+    else:
+        nrows = out.shape[0]
+        userows = range(nrows)
 
-def load_obj(filename):
-    raise NotImplementedError("This method has not yet been implemented.")
+        data = []
+        for i in userows:
+            point = []
+            for key in usecols:
+                point.append(out[key][i])
+            data.append(point)
+
+        ncols = len(usecols)
+        data = np.array(data).reshape(nrows, ncols)
+
+    return data
