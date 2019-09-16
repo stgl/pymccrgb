@@ -2,7 +2,7 @@
 
 import os
 
-from io import load_txt
+from io import load_laz
 
 directories = os.path.dirname(__file__)
 path = "/".join(directories.split("/")[0:-1])
@@ -14,8 +14,8 @@ def load_kaibab_lidar(npoints=None):
 
 
 def load_mammoth_lidar(npoints=None):
-    filename = os.path.join(DATA_DIRECTORY, "mammoth_lidar'txt")
-    data = load_txt(filename, nrows=npoints)
+    filename = os.path.join(DATA_DIRECTORY, "mammoth_lidar.laz")
+    data = load_laz(filename, nrows=npoints)
     return data
 
 
