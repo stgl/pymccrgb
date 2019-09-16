@@ -44,8 +44,8 @@ def load_txt(filename, usecols=range(6), userows=None, nrows=None):
 
 
 def load_las(filename):
-    pass
+    raise NotImplementedError("This method has not yet been implemented.")
 
 
 def load_obj(filename):
-    pass
+    raise NotImplementedError("This method has not yet been implemented.")
