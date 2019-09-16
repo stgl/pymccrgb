@@ -47,27 +47,6 @@ def intersect_rows(arr1, arr2):
     return mask
 
 
-def loadtxt_rows(fn, usecols, userows=None, nrows=None):
-    """ Loads specified rows and columns from text file as numpy array """
-
-    if userows is None and nrows is not None:
-        with open(fn, "r") as f:
-            for i, s in enumerate(f):
-                pass
-        nlines = i + 1
-        userows = np.random.choice(nlines, size=nrows)
-
-    data = []
-    with open(fn, "r") as f:
-        for i, s in enumerate(f):
-            if i in userows:
-                row = s.split(",")
-                row = np.asarray(row)
-                row = row[usecols]
-                data.append(row)
-    return np.array(data)
-
-
 def point_grid(x_min, x_max, y_min, y_max, dx, dy=None):
     """ Generates a grid of points within a bounding box """
     if dy is None:
