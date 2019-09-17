@@ -70,7 +70,7 @@ def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
     pipeline = pdal.Pipeline(json)
     pipeline.validate()
     pipeline.loglevel = 0
-    nrows = pipeline.execute()
+    count = pipeline.execute()
 
     out = pipeline.arrays[0]
     if userows is None:
