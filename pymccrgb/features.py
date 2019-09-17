@@ -6,8 +6,8 @@ Inputs are assumed to be n x 6 arrays with each row being x, y, z, r, g, b
 
 import numpy as np
 
-from scipy.misc import bytescale
 from skimage.color import rgb2lab
+from skimage.exposure import rescale_intensity
 
 
 def calculate_color_features(data):
@@ -23,7 +23,7 @@ def calculate_color_features(data):
         An n x 3 array of features for each point.
     """
 
-    rgb = bytescale(data[:, 3:6]).astype(np.int16)
+    rgb = rescale_intensity(data[:, 3:6], out_range="uint8").astype(np.uint8)
     lab = rgb2lab(np.array([rgb]))[0].reshape(-1, 3)
     ngrdvi = calculate_ngrdvi(data).reshape(-1, 1)
     return np.hstack([lab[:, 1:3], ngrdvi])
