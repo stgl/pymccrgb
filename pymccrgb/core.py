@@ -259,4 +259,9 @@ def mcc_rgb(
 
             niter += 1
 
+    if reached_max_iter and verbose:
+        print("Reached maximum number of iterations ({})".format(max_iter))
+    if verbose:
+        print("Converged in {} iterations".format(niter))
+
     return data, updated
