@@ -2,7 +2,7 @@
 
 import os
 
-from .io import load_las
+from ioutils import load_las
 
 directories = os.path.dirname(__file__)
 path = "/".join(directories.split("/")[0:-1])

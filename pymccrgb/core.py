@@ -4,7 +4,7 @@ import numpy as np
 
 from classification import make_sgd_pipeline
 from features import calculate_color_features
-from utils import equal_sample
+from pointutils import equal_sample
 
 from pymcc_lidar import pymcc_singlepass as calculate_excess_height
 
@@ -70,12 +70,15 @@ def mcc(
 
     Args:
         data: A n x d data matrix with rows [x, y, z, ...]
+
         scales: The interpolation scales. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each intrpolation point. Defaults to [0.5, 1, 1.5]
             meters.
+        
         tols: The height tolerances. Points exceeding the durface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
+        
         threshs: The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
 
