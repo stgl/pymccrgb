@@ -3,11 +3,12 @@
 import numpy as np
 import pdal
 
-DEFAULT_COLUMNS = ["X", "Y", "Z", "Red", "Green", "Blue"]
+DEFAULT_COLUMN_INDICES = range(6)
+DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
 
 
-def load_txt(filename, usecols=range(6), userows=None, nrows=None):
-    """ Loads specified rows and columns from text file as numpy array
+def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None):
+    """ Loads a point cloud from text file as numpy array
 
     Args:
         filename: Filename of text file containing point cloud
@@ -45,7 +46,26 @@ def load_txt(filename, usecols=range(6), userows=None, nrows=None):
     return np.array(data)
 
 
-def load_las(filename, userows=None, usecols=DEFAULT_COLUMNS):
+def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
+    """Loads a point cloud from a LAS or LAZ file into a Numpy array
+
+    Theoretically, any file with a PDAL reader can be read with load_las
+
+    Args:
+        filename: Filename of LAS or LAZ file containing point cloud
+
+        usecols: List of column names to load
+            Default: ['X', 'Y', 'Z', 'Red', 'Green', 'Blue']
+
+        userows: List of rows to load. Overrides nrows argument
+            Default: All rows
+
+        nrows: Number of random rows to load. Ignored if userows is given.
+            Default: Not used.
+
+    Returns: A data array of shape (nrows x ncols)
+    """
+
     json = '{"pipeline": ["' + filename + '"]}'
     pipeline = pdal.Pipeline(json)
     pipeline.validate()
@@ -54,19 +74,19 @@ def load_las(filename, userows=None, usecols=DEFAULT_COLUMNS):
 
     out = pipeline.arrays[0]
     if userows is None:
-        data = np.hstack([out[key].reshape(-1, 1) for key in usecols])
-    else:
-        nrows = out.shape[0]
-        userows = range(nrows)
+        if nrows is None:
+            data = np.hstack([out[key].reshape(-1, 1) for key in usecols])
+            return data
+        userows = np.random.choice(out.shape[0], size=nrows)
 
-        data = []
-        for i in userows:
-            point = []
-            for key in usecols:
-                point.append(out[key][i])
-            data.append(point)
+    data = []
+    for i in userows:
+        point = []
+        for key in usecols:
+            point.append(out[key][i])
+        data.append(point)
 
-        ncols = len(usecols)
-        data = np.array(data).reshape(nrows, ncols)
+    ncols = len(usecols)
+    data = np.array(data).reshape(nrows, ncols)
 
     return data
