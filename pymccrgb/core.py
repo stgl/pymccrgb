@@ -158,8 +158,7 @@ def mcc_rgb(
             otherwise the defaults are used.
 
         training_tols: The training relative heights. Defaults to the first
-            height tolerance (e.g., 0.3). Both training_scales and
-            training_tols must be specified; otherwise the defaults are used.
+            height tolerance (e.g., 0.3). Can be specified as a list of 
 
         n_train: The total number of points to use for training the color
             classifier. Defaults to 1E5.
@@ -177,15 +176,28 @@ def mcc_rgb(
             in training_scales and training_tols.
     """
 
-    if training_scales is None or training_tols is None:
-        training_tols = tols[0:1]
+    if training_scales is None:
         training_scales = scales[0:1]
-    else:
-        scales += training_scales
-        tols += training_tols
-        idx = np.argsort(scales)
-        scales = scales[idx]
-        tols = tols[idx]
+    if training_tols is None:
+        training_tols = tols[0:1]
+    if not isinstance(training_tols, list):
+        tol = float(training_tols)
+        training_tols = len(training_scales) * [tol]
+
+    if len(training_scales) != len(training_tols):
+        raise ValueError(
+            "Not enough training scales or tolerances provided. Please give "
+            "two lists of equal length, or a single value for training_tols."
+            "Arguments were training_scales={} and training_tols={}".format(
+                training_scales, training_tols
+            )
+        )
+
+    scales += training_scales
+    tols += training_tols
+    idx = np.argsort(scales)
+    scales = scales[idx]
+    tols = tols[idx]
 
     n_points = data.shape[0]
     updated = np.full((n_points,), fill_value=-1)
@@ -246,4 +258,5 @@ def mcc_rgb(
             reached_max_iter = niter >= max_iter
 
             niter += 1
+
     return data, updated
