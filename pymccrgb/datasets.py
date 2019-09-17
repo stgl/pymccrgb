@@ -10,7 +10,9 @@ DATA_DIRECTORY = os.path.join(path, "docs/source/examples/data")
 
 
 def load_kaibab_lidar(npoints=None):
-    raise NotImplementedError("This method has not yet been implemented.")
+    filename = os.path.join(DATA_DIRECTORY, "kaibab_lidar.laz")
+    data = load_las(filename, nrows=npoints)
+    return data
 
 
 def load_mammoth_lidar(npoints=None):
@@ -20,4 +22,6 @@ def load_mammoth_lidar(npoints=None):
 
 
 def load_mammoth_sfm(npoints=None):
-    raise NotImplementedError("This method has not yet been implemented.")
+    filename = os.path.join(DATA_DIRECTORY, "mammoth_sfm.laz")
+    data = load_las(filename, nrows=npoints)
+    return data
