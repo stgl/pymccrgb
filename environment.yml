@@ -5,10 +5,6 @@ channels:
 dependencies:
   - python=3.6
   - pip
-  - gcc
-  - libstdcxx-ng
-  - boost
-  - boost-cpp
   - cmake
   - cython
   - numpy
