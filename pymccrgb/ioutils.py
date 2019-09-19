@@ -31,6 +31,7 @@ def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None)
                 pass
         nlines = i + 1
         if nrows is not None:
+            nrows = int(nrows)
             userows = np.random.choice(nlines, size=nrows)
         else:
             userows = range(nlines)
@@ -77,6 +78,7 @@ def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
         if nrows is None:
             data = np.hstack([out[key].reshape(-1, 1) for key in usecols])
             return data
+        nrows = int(nrows)
         userows = np.random.choice(out.shape[0], size=nrows)
 
     data = []
