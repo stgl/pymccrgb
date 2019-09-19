@@ -91,7 +91,25 @@ def plot_labels(x, y, labels, mask=None, ax=None):
 
 
 @style_plot
-def plot_points(x, y, colors, cmax=2 ** 16, ax=None):
+def plot_points(data, axes="xy", cmax=2 ** 16, ax=None):
+    x = data[:, 0]
+    y = data[:, 1]
+    z = data[:, 2]
+    colors = data[:, 3:6]
+    colors /= colors.max()
+
+    if axes == "xy":
+        x = x
+        y = y
+    if axes == "xz":
+        x = x
+        y = z
+    if axes == "yz":
+        x = y
+        y = z
+    else:
+        raise ValueError(f"axes must be one of 'xy', 'xz', or 'yz'. Got {axes}")
+
     if ax is None:
         fig, ax = plt.subplots(1, 1)
     ax.scatter(x, y, marker=".", linestyle="None", c=colors / cmax)
@@ -99,7 +117,12 @@ def plot_points(x, y, colors, cmax=2 ** 16, ax=None):
 
 
 @style_plot
-def plot_points_3d(x, y, z, colors, ax=None, **kwargs):
+def plot_points_3d(data, ax=None, **kwargs):
+    x = data[:, 0]
+    y = data[:, 1]
+    z = data[:, 2]
+    colors = data[:, 3:6]
+    colors /= colors.max()
     if ax is None:
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
