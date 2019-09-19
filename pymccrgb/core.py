@@ -6,7 +6,7 @@ from classification import make_sgd_pipeline
 from features import calculate_color_features
 from pointutils import equal_sample
 
-from pymcc_lidar import pymcc_singlepass as calculate_excess_height
+from pymcc_lidar import calculate_excess_height
 
 
 def classify_ground_mcc(data, scale, tol, downsample=False):
