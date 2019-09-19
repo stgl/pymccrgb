@@ -2,9 +2,11 @@
 
 import numpy as np
 
+from copy import copy
+
 from classification import make_sgd_pipeline
 from features import calculate_color_features
-from pointutils import equal_sample
+from pointutils import equal_sample, intersect_rows
 
 from pymcc_lidar import calculate_excess_height
 
@@ -83,7 +85,9 @@ def mcc(
             [1%, 0.1%, 0.01%]
 
     Returns:
-        An m x d array of ground points
+        data: An m x d array of ground points
+        
+        labels: An n x 1 array of labels (1 is ground, 0 is nonground)
 
     References:
         [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
@@ -91,6 +95,7 @@ def mcc(
             environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
         [2] https://sourceforge.net/p/mcclidar
     """
+    original_data = copy(data)
 
     for scale, tol, thresh in zip(scales, tols, threshs):
         converged = False
@@ -119,7 +124,19 @@ def mcc(
                 )
 
             niter += 1
-    return data
+
+    labels = intersect_rows(data, original_data)
+
+    if verbose:
+        n_ground = data.shape[0]
+        n_points = original_data.shape[0]
+        print(
+            "Retained {} ground points ({:.2f} %)".format(
+                n_ground, 100 * (n_ground / n_points)
+            )
+        )
+
+    return data, labels
 
 
 def mcc_rgb(
@@ -171,6 +188,8 @@ def mcc_rgb(
 
     Returns:
         data: An m x d array of ground points
+        
+        labels: An n x 1 array of labels (1 is ground, 0 is nonground)
 
         updated: An n x 1 array of labels indicating whether the point was
             updated in an MCC-RGB step. -1 indicates the point's classification
@@ -178,6 +197,7 @@ def mcc_rgb(
             this will be the index of the scale and tolerance range defined
             in training_scales and training_tols.
     """
+    original_data = copy(data)
 
     if training_scales is None:
         training_scales = scales[0:1]
@@ -196,9 +216,15 @@ def mcc_rgb(
             )
         )
 
-    scales += training_scales
-    tols += training_tols
+    params = zip(scales, tols)
+    for scale, tol in zip(training_scales, training_tols):
+        if (scale, tol) not in params:
+            scales.append(scale)
+            tols.append(tol)
+
     idx = np.argsort(scales)
+    scales = np.array(scales)
+    tols = np.array(tols)
     scales = scales[idx]
     tols = tols[idx]
 
@@ -239,19 +265,20 @@ def mcc_rgb(
                 params = list(zip(training_scales, training_tols))
                 update_step_idx = params.index((scale, tol))
                 updated[(y == 1) & (y_pred == 0)] = update_step_idx
-                y[(y == 1) & (y_pred == 0)] = 0
 
                 if verbose:
                     n_removed_clf = np.sum((y == 1) & (y_pred == 0))
                     print("-" * 20)
                     print("Classification update step")
                     print("-" * 20)
-                    print("Scale: {}, Relative height: {}".format(scale, tol))
+                    print("Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol))
                     print(
                         "Removed {} nonground points ({:.2f} %)".format(
                             n_removed_clf, 100 * (n_removed_clf / n_points)
                         )
                     )
+
+                y[(y == 1) & (y_pred == 0)] = 0
 
             ground = y == 1
             data = data[ground, :]
@@ -260,11 +287,21 @@ def mcc_rgb(
             converged = 100 * (n_removed / n_points) < thresh
             reached_max_iter = niter >= max_iter
 
+            if reached_max_iter and verbose:
+                print("Reached maximum number of iterations ({})".format(max_iter))
+
             niter += 1
 
-    if reached_max_iter and verbose:
-        print("Reached maximum number of iterations ({})".format(max_iter))
-    if verbose:
-        print("Converged in {} iterations".format(niter))
+    labels = intersect_rows(data, original_data)
 
-    return data, updated
+    if verbose:
+        n_ground = data.shape[0]
+        n_points = original_data.shape[0]
+        print()
+        print(
+            "Retained {} ground points ({:.2f} %)".format(
+                n_ground, 100 * (n_ground / n_points)
+            )
+        )
+
+    return data, labels, updated
