@@ -120,7 +120,7 @@ def plot_points_3d(data, ax=None, **kwargs):
     x = data[:, 0]
     y = data[:, 1]
     z = data[:, 2]
-    colors = data[:, 3:6]
+    colors = copy(data[:, 3:6])
     colors /= colors.max()
 
     if ax is None:
@@ -221,8 +221,6 @@ def plot_results(data, labels_mcc, labels_pred):
     x = data[:, 0]
     y = data[:, 1]
     z = data[:, 2]
-    rgb = copy(data[:, 3:6])
-    rgb /= 255
 
     xt = x.min()
     yt = y.min()
@@ -231,7 +229,7 @@ def plot_results(data, labels_mcc, labels_pred):
     fig = plt.figure(figsize=(16, 4))
 
     ax = fig.add_subplot(1, 4, 1, projection="3d")
-    plot_points_3d(x, y, z, rgb, ax=ax)
+    plot_points_3d(data, ax=ax)
     ax.text(xt, yt, zt, "A", fontsize=20)
     xl = ax.set_xlim()
     yl = ax.set_ylim()
@@ -241,21 +239,21 @@ def plot_results(data, labels_mcc, labels_pred):
 
     ax = fig.add_subplot(1, 4, 2, projection="3d")
     mask = labels_mcc == 1
-    plot_points_3d(x[mask], y[mask], z[mask], rgb[mask], ax=ax)
+    plot_points_3d(data[mask, :], ax=ax)
     ax.text(xt, yt, zt, "B", fontsize=20)
 
     minor_subplots.append(ax)
 
     ax = fig.add_subplot(1, 4, 3, projection="3d")
     mask = labels_pred == 1
-    plot_points_3d(x[mask], y[mask], z[mask], rgb[mask], ax=ax)
+    plot_points_3d(data[mask, :], ax=ax)
     ax.text(xt, yt, zt, "C", fontsize=20)
 
     minor_subplots.append(ax)
 
     ax = fig.add_subplot(1, 4, 4, projection="3d")
     mask = (labels_pred == 0) & (labels_mcc == 1)
-    plot_points_3d(x[mask], y[mask], z[mask], rgb[mask], ax=ax)
+    plot_points_3d(data[mask, :], ax=ax)
     ax.text(xt, yt, zt, "D", fontsize=20)
 
     minor_subplots.append(ax)
