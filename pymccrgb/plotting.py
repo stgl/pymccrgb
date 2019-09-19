@@ -91,12 +91,11 @@ def plot_labels(x, y, labels, mask=None, ax=None):
 
 
 @style_plot
-def plot_points(data, axes="xy", cmax=2 ** 16, ax=None):
+def plot_points(data, axes="xy", cmax=2 ** 8, ax=None):
     x = data[:, 0]
     y = data[:, 1]
     z = data[:, 2]
     colors = data[:, 3:6]
-    colors /= colors.max()
 
     if axes == "xy":
         x = x
@@ -123,10 +122,12 @@ def plot_points_3d(data, ax=None, **kwargs):
     z = data[:, 2]
     colors = data[:, 3:6]
     colors /= colors.max()
+
     if ax is None:
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
     ax.scatter(x, y, z, marker=".", c=colors, **kwargs)
+
     # ax.set_aspect('equal')
     ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
     ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
