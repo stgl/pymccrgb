@@ -14,5 +14,7 @@ dependencies:
   - scikit-image
   - pdal
   - python-pdal
+  - auto::liblas
+  - fiona
   - pip:
     - git+https://github.com/stgl/pymcc
