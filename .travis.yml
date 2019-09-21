@@ -2,9 +2,12 @@ language: python
 python:
     - "3.6"
 
-install:
+before-install:
   - sudo apt-get update
     #- sudo apt-get install liblas-bin liblas-dev liblas-c-dev libboost-all-dev
+  - sudo apt-get install liblas-c-dev
+
+install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
