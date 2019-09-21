@@ -18,13 +18,32 @@ stereo photogrammetry, or multi-spectral lidar scanning.
 
 ### Installation
 
-It is best to [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install this package:
+This package is developed for Linux/OS X and Python 3.6+.
+
+THe LibLAS C library is required for MCC and `pymccrgb`. You can install it via `apt`:
+
+```bash
+sudo apt-get install liblas-c-dev
+```
+
+or directly from source
+
+```bash
+mkdir ~/liblas
+cd ~/liblas
+apt-get download liblas-c-dev  # Downloads the LibLAS .deb file
+dpkg -x <deb-file> ~/liblas
+export LD_LIBRARY_PATH=~/liblas/usr/include/:$LD_LIBRARY_PATH
+```
+
+Then, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package:
 
 ```bash
 git clone https://github.com/rmsare/pymccrgb
 cd pymccrgb
-conda create -n pymcc -f environment.yml
+conda env create -f environment.yml
 conda activate pymcc
+py.test pymccrgb/tests
 ```
 
 ## Examples
@@ -33,11 +52,7 @@ conda activate pymcc
 
 
 
-### Removing bushes from a UAV-SFM survey of an earthquake fault scarp
-
-
-
-### Rangeland vegetation height
+### Vegetation height
 
 
 
