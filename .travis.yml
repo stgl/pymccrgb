@@ -4,7 +4,6 @@ python:
 
 before_install:
   - sudo apt-get update
-    #- sudo apt-get install liblas-bin liblas-dev liblas-c-dev libboost-all-dev
   - sudo apt-get install liblas-c-dev
 
 install:
@@ -26,4 +25,4 @@ install:
   - conda activate pymcc
 
 script:
-#    py.test pymccrgb/tests
+    py.test pymccrgb/tests

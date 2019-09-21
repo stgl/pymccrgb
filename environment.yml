@@ -15,5 +15,6 @@ dependencies:
   - pdal
   - python-pdal
   - fiona
+  - py.test
   - pip:
     - git+https://github.com/stgl/pymcc
