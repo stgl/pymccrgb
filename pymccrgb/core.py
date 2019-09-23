@@ -204,6 +204,9 @@ def mcc_rgb(
         training_scales = scales[0:1]
     if training_tols is None:
         training_tols = tols[0:1]
+    if not isinstance(training_scales, list):
+        scale = float(training_scales)
+        training_scales = len(training_tols) * [scale]
     if not isinstance(training_tols, list):
         tol = float(training_tols)
         training_tols = len(training_scales) * [tol]
@@ -236,7 +239,7 @@ def mcc_rgb(
     mask = np.isfinite(X).all(axis=-1)
     data = data[mask, :]
     n_points = data.shape[0]
-    updated = np.full((n_points,), fill_value=-1)
+    # updated = np.full((n_points,), fill_value=-1)
     reached_max_iter = False
 
     for scale, tol, thresh in zip(scales, tols, threshs):
@@ -264,28 +267,36 @@ def mcc_rgb(
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
             if update_step and first_iter:
-                X = calculate_color_features(data)
-                X_train, y_train = equal_sample(X, y, size=int(n_train / 2), seed=seed)
-                pipeline = make_sgd_pipeline(X_train, y_train)
-                y_pred = pipeline.predict(X)
-
-                params = list(zip(training_scales, training_tols))
-                update_step_idx = params.index((scale, tol))
-                updated[(y == 1) & (y_pred == 0)] = update_step_idx
-
-                if verbose:
-                    n_removed_clf = np.sum((y == 1) & (y_pred == 0))
-                    print("-" * 20)
-                    print("Classification update step")
-                    print("-" * 20)
-                    print("Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol))
-                    print(
-                        "Removed {} nonground points ({:.2f} %)".format(
-                            n_removed_clf, 100 * (n_removed_clf / n_points)
-                        )
+                try:
+                    X = calculate_color_features(data)
+                    X_train, y_train = equal_sample(
+                        X, y, size=int(n_train / 2), seed=seed
                     )
+                    pipeline = make_sgd_pipeline(X_train, y_train)
+                    y_pred = pipeline.predict(X)
 
-                y[(y == 1) & (y_pred == 0)] = 0
+                    # params = list(zip(training_scales, training_tols))
+                    # update_step_idx = params.index((scale, tol))
+                    # updated[(y == 1) & (y_pred == 0)] = update_step_idx
+
+                    if verbose:
+                        n_removed_clf = np.sum((y == 1) & (y_pred == 0))
+                        print("-" * 20)
+                        print("Classification update step")
+                        print("-" * 20)
+                        print(
+                            "Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol)
+                        )
+                        print(
+                            "Removed {} nonground points ({:.2f} %)".format(
+                                n_removed_clf, 100 * (n_removed_clf / n_points)
+                            )
+                        )
+
+                    y[(y == 1) & (y_pred == 0)] = 0
+                except ValueError as e:
+                    print("Skipping classification update. ")
+                    print(f"ValueError: {e}")
 
             ground = y == 1
             data = data[ground, :]
@@ -311,4 +322,4 @@ def mcc_rgb(
             )
         )
 
-    return data, labels, updated
+    return data, labels  # , updated
