@@ -7,6 +7,38 @@ DEFAULT_COLUMN_INDICES = range(6)
 DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
 
 
+def load_data(filename, usecols=None, userows=None, nrows=None):
+    """ Loads a point cloud as numpy array
+
+    Args:
+        filename: Filename of text file containing point cloud
+
+        usecols: List of column indices to load
+            Default: First six columns, e.g.,  (x, y, z, r, g, b)
+
+        userows: List of rows to load. Overrides nrows argument
+            Default: All rows
+
+        nrows: Number of random rows to load. Ignored if userows is given.
+            Default: Not used.
+
+    Returns: A data array of shape (nrows x ncols)
+    """
+    if filename.endswith(".csv") or filename.endswith(".txt"):
+        if usecols is None:
+            usecols = DEFAULT_COLUMN_INDICES
+        data = load_txt(filename, usecols=usecols, userows=userows, nrows=nrows)
+    elif filename.endswith(".las") or filename.endswith(".laz"):
+        if usecols is None:
+            usecols = DEFAULT_COLUMN_NAMES
+        data = load_las(filename, usecols=usecols, userows=userows, nrows=nrows)
+    else:
+        raise ValueError(
+            "Unsupported format provided. Please provide a CSV file (.txt or .csv) or LAS/LAZ file."
+        )
+    return data
+
+
 def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None):
     """ Loads a point cloud from text file as numpy array
 
