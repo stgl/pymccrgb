@@ -4,14 +4,16 @@
 [![Documentation Status](https://readthedocs.org/projects/pymccrgb/badge/?version=latest)](https://pymccrgb.readthedocs.io/en/latest/?badge=latest)
 
 **pymccrgb** is a Python package for multiscale curvature classification of
-point clouds with color features. It extends a popular classification method
+point clouds with color features. 
+
+It extends a popular classification method
 ([MCC lidar](https://sourceforge.net/p/mcclidar/wiki/Home/)) [[0]](#references) to point cloud datasets with multiple color channels, such as those
 commonly produced in surveys using drone photography or other platforms. It can be used to extract points from the
 ground surface and higher vegetation in data for which multiple laser
 returns are not available.
 
-It is intended for scientists in geomorphology, forest ecology, or planetary science
-who wish to classify points in datasets produced by structure from motion photogrammetry,
+The intended users are scientists in geomorphology, ecology, or planetary science
+who want to classify points in datasets produced by structure from motion photogrammetry,
 stereo photogrammetry, or multi-spectral lidar scanning.
 
 ## Getting started
@@ -20,7 +22,7 @@ stereo photogrammetry, or multi-spectral lidar scanning.
 
 This package is developed for Linux/OS X and Python 3.6+.
 
-THe LibLAS C library is required for MCC and `pymccrgb`. You can install it via `apt`:
+The LibLAS C library is required for MCC and `pymccrgb`. You can install it via `apt`:
 
 ```bash
 sudo apt-get install liblas-c-dev
