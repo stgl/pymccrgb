@@ -84,7 +84,7 @@ class MCCRGBTestCase(unittest.TestCase):
     def test_mcc_rgb_two_training_tols(self):
         test_points, test_labels = pymccrgb.core.mcc_rgb(
             self.data,
-            tols=[1.0, 0.3, 0.3]
+            tols=[1.0, 0.3, 0.3],
             training_tols=[1.0, 0.3],
             training_scales=[0.5, 0.5],
             seed=SEED_VALUE,
