@@ -29,9 +29,9 @@ class MCCTestCase(unittest.TestCase):
             os.path.join(TEST_OUTPUT_DIR, f"classification_mcc_{scale}_{tol}.npy"),
             allow_pickle=True,
         )
-        self.assertEqual(
-            test,
-            true,
+        self.assertSequenceEqual(
+            test.tolist(),
+            true.tolist(),
             f"MCC ground classification is incorrect for scale {scale} and height tolerance {tol}",
         )
 
@@ -50,8 +50,9 @@ class MCCTestCase(unittest.TestCase):
             np.allclose(test_points, true_points),
             "Ground points are incorrect for default MCC configuration",
         )
-        self.assertTrue(
-            np.allclose(test_labels, true_labels),
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
             "Classification is incorrect for default MCC configuration",
         )
 
@@ -70,13 +71,12 @@ class MCCRGBTestCase(unittest.TestCase):
             os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy"),
             allow_pickle=True,
         )
-        print(len(test_points), len(true_points))
-        print(test_points.shape, true_points.shape)
         self.assertTrue(
             np.allclose(test_points, true_points),
             "Ground points are incorrect for default MCC-RGB configuration",
         )
-        self.assertTrue(
-            np.allclose(test_labels, true_labels),
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
             "Classification is incorrect for default MCC-RGB configuration",
         )
