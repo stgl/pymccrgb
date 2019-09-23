@@ -9,7 +9,8 @@ import numpy as np
 
 from context import pymccrgb
 
-TEST_DIR = os.path.dirname(__file__)
+TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+TEST_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 # Indices of derived features in test data
 L_INDEX = 0
@@ -22,8 +23,10 @@ DEFAULT_FEATURE_INDEXES = [A_INDEX, B_INDEX, NGRDVI_INDEX]
 
 class ColorFeatureTestCase(unittest.TestCase):
     def setUp(self):
-        self.data = pymccrgb.ioutils.load_las(os.path.join(TEST_DIR, "points_rgb.laz"))
-        self.target = np.load(os.path.join(TEST_DIR, "features_rgb.npy"))
+        self.data = pymccrgb.ioutils.load_las(
+            os.path.join(TEST_DATA_DIR, "points_rgb.laz")
+        )
+        self.target = np.load(os.path.join(TEST_OUTPUT_DIR, "features_rgb.npy"))
 
     def test_calculate_color_features(self):
         test = pymccrgb.features.calculate_color_features(self.data)
