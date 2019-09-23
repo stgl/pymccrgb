@@ -38,10 +38,14 @@ class ColorFeatureTestCase(unittest.TestCase):
 
     def test_calculate_ngrdvi(self):
         test = pymccrgb.features.calculate_ngrdvi(self.data)
+        test = test[np.isfinite(test)]
         true = self.target[:, NGRDVI_INDEX]
+        true = true[np.isfinite(true)]
         self.assertTrue(np.allclose(test, true), "NGRDVI calculation is incorrect")
 
     def test_calculate_vdvi(self):
         test = pymccrgb.features.calculate_vdvi(self.data)
+        test = test[np.isfinite(test)]
         true = self.target[:, VDVI_INDEX]
+        true = true[np.isfinite(true)]
         self.assertTrue(np.allclose(test, true), "VDVI calculation is incorrect")
