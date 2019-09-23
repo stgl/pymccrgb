@@ -146,8 +146,9 @@ def mcc_rgb(
     threshs=[1, 0.1, 0.01],
     training_scales=None,
     training_tols=None,
-    n_train=int(1e5),
+    n_train=int(1e3),
     max_iter=20,
+    seed=None,
     verbose=False,
 ):
     """ Classifies ground points using the MCC-RGB algorithm
@@ -186,6 +187,8 @@ def mcc_rgb(
         max_iter: Maximum number of iterations in a scale domain.
             Defaults to 20.
 
+        seed: Optional seed value for selecting training data.
+
     Returns:
         data: An m x d array of ground points
         
@@ -197,8 +200,6 @@ def mcc_rgb(
             this will be the index of the scale and tolerance range defined
             in training_scales and training_tols.
     """
-    original_data = copy(data)
-
     if training_scales is None:
         training_scales = scales[0:1]
     if training_tols is None:
@@ -228,6 +229,12 @@ def mcc_rgb(
     scales = scales[idx]
     tols = tols[idx]
 
+    original_data = copy(data)
+
+    # Mask NaN and infinite index/color values
+    X = calculate_color_features(data)
+    mask = np.isfinite(X).all(axis=-1)
+    data = data[mask, :]
     n_points = data.shape[0]
     updated = np.full((n_points,), fill_value=-1)
     reached_max_iter = False
@@ -258,7 +265,7 @@ def mcc_rgb(
             first_iter = niter == 0
             if update_step and first_iter:
                 X = calculate_color_features(data)
-                X_train, y_train = equal_sample(X, y, size=int(n_train / 2))
+                X_train, y_train = equal_sample(X, y, size=int(n_train / 2), seed=seed)
                 pipeline = make_sgd_pipeline(X_train, y_train)
                 y_pred = pipeline.predict(X)
 

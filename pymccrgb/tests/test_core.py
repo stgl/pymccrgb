@@ -12,8 +12,9 @@ from context import pymccrgb
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
-TEST_SCALES = [0.5, 1, 1.5]
-TEST_TOLS = [0.01, 0.05, 0.3, 0.5, 1]
+TEST_SCALES = [0.5, 1.0, 1.5]
+TEST_TOLS = [0.01, 0.05, 0.3, 0.5, 1.0]
+SEED_VALUE = 42
 
 
 class MCCTestCase(unittest.TestCase):
@@ -23,9 +24,10 @@ class MCCTestCase(unittest.TestCase):
         )
 
     def _test_classify_ground_mcc(self, scale, tol):
-        test = pymccrgb.core.classify_ground(self.data, scale, tol)
+        test = pymccrgb.core.classify_ground_mcc(self.data, scale, tol)
         true = np.load(
-            os.path.join(TEST_OUTPUT_DIR, f"classification_mcc_{scale}_{tol}.npy")
+            os.path.join(TEST_OUTPUT_DIR, f"classification_mcc_{scale}_{tol}.npy"),
+            allow_pickle=True,
         )
         self.assertEqual(
             test,
@@ -41,7 +43,8 @@ class MCCTestCase(unittest.TestCase):
     def test_mcc_default(self):
         test_points, test_labels = pymccrgb.core.mcc(self.data, verbose=True)
         true_points, true_labels = np.load(
-            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mcc_default.npy")
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mcc_default.npy"),
+            allow_pickle=True,
         )
         self.assertTrue(
             np.allclose(test_points, true_points),
@@ -60,10 +63,15 @@ class MCCRGBTestCase(unittest.TestCase):
         )
 
     def test_mcc_rgb_default(self):
-        test_points, test_labels = pymccrgb.core.mcc_rgb(self.data, verbose=True)
-        true_points, true_labels, true_updated = np.load(
-            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy")
+        test_points, test_labels, _ = pymccrgb.core.mcc_rgb(
+            self.data, seed=SEED_VALUE, verbose=True
         )
+        true_points, true_labels = np.load(
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy"),
+            allow_pickle=True,
+        )
+        print(len(test_points), len(true_points))
+        print(test_points.shape, true_points.shape)
         self.assertTrue(
             np.allclose(test_points, true_points),
             "Ground points are incorrect for default MCC-RGB configuration",
