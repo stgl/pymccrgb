@@ -16,8 +16,6 @@ The intended users are scientists in geomorphology, ecology, or planetary scienc
 who want to classify points in datasets produced by structure from motion photogrammetry,
 stereo photogrammetry, or multi-spectral lidar scanning.
 
-## Getting started
-
 ### Installation
 
 This package is developed for Linux/OS X and Python 3.6+.
@@ -48,33 +46,33 @@ conda activate pymcc
 py.test pymccrgb/tests
 ```
 
-## Examples
+### Examples
 
-### Topography under tree cover
-
-
-
-### Vegetation height
+#### Topography under tree cover
 
 
 
-## Documentation
+#### Vegetation height
+
+
+
+### Documentation
 
 Read the documentation for example use cases, an API reference, and more. They
 are hosted at [pymccrgb.readthedocs.io](https://pymccrgb.readthedocs.io).
 
-## Contributing
+### Contributing
 
-### Bug reports
+#### Bug reports
 
 Bug reports are much appreciated. Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with the `bug` label,
 and provide a minimal example illustrating the problem.
 
-### Suggestions
+#### Suggestions
 
 Feel free to [suggest new features](https://github.com/rmsare/pymccrgb/issues/new) in an issue with the `new-feature` label.
 
-### Pull requests
+#### Pull requests
 
 If you would like to add a feature or fix a bug, please fork the repository, create a feature branch, and [submit a PR](https://github.com/rmsare/pymccrgb/compare) and reference any relevant issues. There are nice guides to contributing with GitHub [here](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/) and [here](https://yourfirstpr.github.io/). Please include tests where appropriate and check that the test suite passes (a Travis build or `pytest pymccrgb/tests`) before submitting.
 
@@ -82,7 +80,7 @@ If you would like to add a feature or fix a bug, please fork the repository, cre
 
 Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your question.
 
-## References
+### References
 
 [0] Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classifying discrete return LiDAR in forested environments. IEEE Transactions on Geoscience and Remote Sensing, 45(4), 1029-1038 [doi](https://doi.org/10.1109/TGRS.2006.890412) 
 
@@ -90,7 +88,7 @@ Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your 
 
 [2] 
 
-## License
+### License
 
 This work is licensed under the MIT License (see [LICENSE](LICENSE)). It also
 incorporates a wrapper for the [`mcc-lidar` implementation](https://sourceforge.net/p/mcclidar),
