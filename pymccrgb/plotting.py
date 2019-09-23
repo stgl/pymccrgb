@@ -217,7 +217,12 @@ def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
 
 
 @style_plot
-def plot_results(data, labels_mcc, labels_pred):
+def plot_results(data, labels_mcc, labels_pred, downsample=None):
+    if downsample is not None:
+        data = data[::downsample]
+        labels_mcc = labels_mcc[::downsample]
+        labels_pred = labels_pred[::downsample]
+
     x = data[:, 0]
     y = data[:, 1]
     z = data[:, 2]

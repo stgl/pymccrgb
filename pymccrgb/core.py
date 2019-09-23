@@ -4,9 +4,9 @@ import numpy as np
 
 from copy import copy
 
-from classification import make_sgd_pipeline
-from features import calculate_color_features
-from pointutils import equal_sample, intersect_rows
+from .classification import make_sgd_pipeline
+from .features import calculate_color_features
+from .pointutils import equal_sample, intersect_rows
 
 from pymcc_lidar import calculate_excess_height
 
