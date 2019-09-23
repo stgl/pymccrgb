@@ -16,7 +16,7 @@ The intended users are scientists in geomorphology, ecology, or planetary scienc
 who want to classify points in datasets produced by structure from motion photogrammetry,
 stereo photogrammetry, or multi-spectral lidar scanning.
 
-### Installation
+### Requirements
 
 This package is developed for Linux/OS X and Python 3.6+.
 
@@ -42,7 +42,11 @@ On OS X, it is [available through Homebrew](https://liblas.org/start.html#instal
 brew install liblas
 ```
 
-Then, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package and the rest of the dependencies:
+It also requires Boost and the C++11 standard library, which are likely installed as system libraries.
+
+### Installation
+
+If LibLAS is installed, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package and the rest of the dependencies:
 
 ```bash
 git clone https://github.com/rmsare/pymccrgb
