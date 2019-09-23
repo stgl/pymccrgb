@@ -1,5 +1,5 @@
 ---
-title: 'pymccrgb: A Python package for ground classification of multispectral point clouds'
+title: 'pymccrgb: Color- and curvature-based classification of multispectral point clouds in Python'
 tags:
   - Python
   - point classification
