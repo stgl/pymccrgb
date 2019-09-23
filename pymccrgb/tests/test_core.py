@@ -64,11 +64,34 @@ class MCCRGBTestCase(unittest.TestCase):
         )
 
     def test_mcc_rgb_default(self):
-        test_points, test_labels, _ = pymccrgb.core.mcc_rgb(
+        test_points, test_labels = pymccrgb.core.mcc_rgb(
             self.data, seed=SEED_VALUE, verbose=True
         )
         true_points, true_labels = np.load(
             os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy"),
+            allow_pickle=True,
+        )
+        self.assertTrue(
+            np.allclose(test_points, true_points),
+            "Ground points are incorrect for default MCC-RGB configuration",
+        )
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
+            "Classification is incorrect for default MCC-RGB configuration",
+        )
+
+    def test_mcc_rgb_two_training_tols(self):
+        test_points, test_labels = pymccrgb.core.mcc_rgb(
+            self.data,
+            tols=[1.0, 0.3, 0.3]
+            training_tols=[1.0, 0.3],
+            training_scales=[0.5, 0.5],
+            seed=SEED_VALUE,
+            verbose=True,
+        )
+        true_points, true_labels = np.load(
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_twotols_1.0_0.3.npy"),
             allow_pickle=True,
         )
         self.assertTrue(
