@@ -43,8 +43,9 @@ def calculate_ngrdvi(data):
         An n x 1 array of NGRDVI values
     """
 
-    red = data[:, 3]
-    green = data[:, 4]
+    rgb = rescale_intensity(data[:, 3:6], out_range="uint8").astype(np.uint8)
+    red = rgb[:, 0].reshape(-1, 1)
+    green = rgb[:, 1].reshape(-1, 1)
 
     return (green - red) / (green + red)
 
@@ -59,8 +60,9 @@ def calculate_vdvi(data):
         An n x 1 array of VDVI values
     """
 
-    red = data[:, 3]
-    green = data[:, 4]
-    blue = data[:, 5]
+    rgb = rescale_intensity(data[:, 3:6], out_range="uint8").astype(np.uint8)
+    red = rgb[:, 0].reshape(-1, 1)
+    green = rgb[:, 1].reshape(-1, 1)
+    blue = rgb[:, 2].reshape(-1, 1)
 
     return (2 * green - red - blue) / (2 * green + red + blue)
