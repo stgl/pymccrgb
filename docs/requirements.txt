@@ -1,7 +1,7 @@
 apidoc
 sphinxcontrib.apidoc
 ipython
-ipython
 nbsphinx
 numpydoc
+jinja2
 msmb_theme
