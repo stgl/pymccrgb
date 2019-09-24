@@ -22,12 +22,13 @@ Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classify
 
 .. toctree::
    :maxdepth: 1 
-   :caption: Example notebooks
+   :caption: Examples 
 
    examples/mcc-rgb.ipynb
+   examples/parameter-selection.ipynb
 
 .. toctree::
    :maxdepth: 3 
-   :caption: API documentation
+   :caption: API reference 
 
    pymccrgb 
