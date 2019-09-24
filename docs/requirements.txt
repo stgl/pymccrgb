@@ -1,7 +1,7 @@
 apidoc
 sphinxcontrib.apidoc
 ipython
-sphinx_rtd_theme
 ipython
 nbsphinx
 numpydoc
+msmb_theme
