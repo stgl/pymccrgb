@@ -16,6 +16,18 @@ The intended users are scientists in geomorphology, ecology, or planetary scienc
 who want to classify points in datasets produced by structure from motion photogrammetry,
 stereo photogrammetry, or multi-spectral lidar scanning.
 
+### Installation
+
+If LibLAS is installed, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package and the rest of the dependencies:
+
+```bash
+git clone https://github.com/rmsare/pymccrgb
+cd pymccrgb
+conda env create -f environment.yml
+conda activate pymcc
+py.test pymccrgb/tests
+```
+
 ### Requirements
 
 This package is developed for Linux/OS X and Python 3.6+.
@@ -44,27 +56,30 @@ brew install liblas
 
 It also requires Boost and the C++11 standard library, which are likely installed as system libraries.
 
-### Installation
-
-If LibLAS is installed, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package and the rest of the dependencies:
-
-```bash
-git clone https://github.com/rmsare/pymccrgb
-cd pymccrgb
-conda env create -f environment.yml
-conda activate pymcc
-py.test pymccrgb/tests
-```
-
 ### Examples
 
 #### Topography under tree cover
 
+```python
+from pymccrgb import mcc, mcc_rgb
+from pymccrgb.datasets import load_mammoth_lidar
+from pymccrgb.plotting import plot_results
 
+# Load sample data (Mammoth Mountain, CA)
+data = load_mammoth_lidar(npoints=1e6)
 
-#### Vegetation height
+# MCC algorithm
+ground_mcc, labels_mcc = mcc(data)
 
+# MCC-RGB algorithm
+ground_mccrgb, labels_mccrgb = mcc_rgb(data)
 
+plot_results_wd(data, labels_mcc, labels_mccrgb)
+```
+
+[![MCC results](docs/img/mccrgb.png)]()
+
+Results of MCC and MCC-RGB on forested area near Mammoth Mountain, CA. 
 
 ### Documentation
 
