@@ -109,10 +109,6 @@ Please [open an issue](https://github.com/rmsare/pymccrgb/issues/new) with your 
 
 [0] Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classifying discrete return LiDAR in forested environments. IEEE Transactions on Geoscience and Remote Sensing, 45(4), 1029-1038 [doi](https://doi.org/10.1109/TGRS.2006.890412) 
 
-[1] 
-
-[2] 
-
 ### License
 
 This work is licensed under the MIT License (see [LICENSE](LICENSE)). It also
