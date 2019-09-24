@@ -102,7 +102,7 @@ MOCK_MODULES = [
     "skimage",
     "sklearn",
     "mpl_toolkits",
-    "mpl_toolkits.mplot_3d",
+    "mpl_toolkits.mplot3d",
     "pymcc_lidar",
     "pdal",
     "scipy",
