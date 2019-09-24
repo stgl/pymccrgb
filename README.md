@@ -85,7 +85,7 @@ Results of MCC and MCC-RGB on forested area near Mammoth Mountain, CA.
 
 Read the documentation for example use cases, an API reference, and more. They
 are hosted at [pymccrgb.readthedocs.io](https://pymccrgb.readthedocs.io). Example
-notebooks are available in the docs or at [docs/source/examples]().
+notebooks are available in the docs or at [docs/source/examples](docs/source/examples).
 
 ### Contributing
 
