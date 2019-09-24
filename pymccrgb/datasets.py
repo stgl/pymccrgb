@@ -15,7 +15,7 @@ def load_kaibab_lidar(npoints=None):
     Parameters
     ----------
         npoints: int
-        Optional number of (random) points to load from file
+            Optional number of (random) points to load from file
 
     Returns
     -------
@@ -32,7 +32,7 @@ def load_mammoth_lidar(npoints=None):
     Parameters
     ----------
         npoints: int
-        Optional number of (random) points to load from file
+            Optional number of (random) points to load from file
 
     Returns
     -------
@@ -49,7 +49,7 @@ def load_mammoth_sfm(npoints=None):
     Parameters
     ----------
         npoints: int
-        Optional number of (random) points to load from file
+            Optional number of (random) points to load from file
 
     Returns
     -------
