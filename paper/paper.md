@@ -43,7 +43,7 @@ The core functionality builds on a popular open source algorithm, multiscale cur
 classification (MCC) [@evans2007], by training a support vector machine
 classifier using color features of vegetation points and updating ground
 classified points according to color similarity. This new two-stage algorithm,
-MCC-RGB, requires fewer iterations than the MCC method and removes low vegetation points in settings that can challenge MCC. Users can choose to re-classify ground points in a single step or at user defined height ranges representing multiple vegetation classes. The package provides a command line interface and Python API to both algorithms.
+MCC-RGB, requires fewer iterations than the MCC method and removes low vegetation points in settings that can challenge MCC. Users can choose to re-classify ground points in a single step or at user defined height ranges representing multiple vegetation classes. The package provides a Python API to both algorithms.
 
 # Acknowledgements
 
