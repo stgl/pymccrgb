@@ -17,7 +17,7 @@ authors:
 affiliations:
   - name: Department of Geological Sciences, Stanford University
     index: 1          
-date: 
+date: 24 September 2019
 bibliography: paper.bib
 ---
 
