@@ -42,21 +42,15 @@ On Ubuntu/Debian, you can install LibLAS via `apt`:
 sudo apt-get install liblas-c-dev
 ```
 
-Or directly from source
-
-```bash
-mkdir ~/liblas
-cd ~/liblas
-apt-get download liblas-c-dev  # Downloads the LibLAS .deb file
-dpkg -x <deb-file> ~/liblas
-export LD_LIBRARY_PATH=~/liblas/usr/include/:$LD_LIBRARY_PATH
-```
-
 On OS X, it is [available through Homebrew](https://liblas.org/start.html#installation):
 
 ```bash
 brew install liblas
 ```
+
+Refer to the [documentation](https://pymccrgb.readthedocs.io/en/latest/installation.html)
+and the [LibLAS install guide](https://liblas.org/start.html#installation) for 
+instructions for installing LibLAS from source.
 
 ### Examples
 
