@@ -17,8 +17,8 @@ Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classify
    :maxdepth: 1 
    :caption: Getting started
 
-    installation
-    quickstart
+   installation
+   quickstart
 
 .. toctree::
    :maxdepth: 1 
