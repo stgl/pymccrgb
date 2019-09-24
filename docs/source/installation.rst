@@ -50,4 +50,4 @@ On OS X, it is available as a Homebrew package.
     brew install liblas
 
 For more details, including how to compile LibLAS from source, see the
-`LibLAS website <https://liblas.org/start.html#installation>_`.
+`LibLAS website <https://liblas.org/start.html#installation>`_.
