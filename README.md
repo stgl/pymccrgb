@@ -74,7 +74,7 @@ ground_mcc, labels_mcc = mcc(data)
 # MCC-RGB algorithm
 ground_mccrgb, labels_mccrgb = mcc_rgb(data)
 
-plot_results_wd(data, labels_mcc, labels_mccrgb)
+plot_results(data, labels_mcc, labels_mccrgb)
 ```
 
 [![MCC results](docs/img/mccrgb.png)]()
