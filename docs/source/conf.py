@@ -102,9 +102,17 @@ MOCK_MODULES = [
     "skimage",
     "sklearn",
     "mpl_toolkits",
+    "mpl_toolkits.mplot_3d",
+    "pymcc_lidar",
+    "pdal",
     "scipy",
+    "scipy.spatial",
+    "shapely.geometry",
     "skimage.color",
+    "skimage.exposure",
     "sklearn.kernel_approximation",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
 ]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
