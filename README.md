@@ -32,7 +32,11 @@ py.test pymccrgb/tests
 
 This package is developed for Linux/OS X and Python 3.6+.
 
-The LibLAS C library is required for MCC and `pymccrgb`. On Ubuntu, you can install it via `apt`:
+The LibLAS C library is required for MCC and `pymccrgb`. The MCC wrapper also 
+requires Boost and the C++11 standard library, which are likely installed as 
+system libraries.
+
+On Ubuntu/Debian, you can install LibLAS via `apt`:
 
 ```bash
 sudo apt-get install liblas-c-dev
@@ -53,8 +57,6 @@ On OS X, it is [available through Homebrew](https://liblas.org/start.html#instal
 ```bash
 brew install liblas
 ```
-
-It also requires Boost and the C++11 standard library, which are likely installed as system libraries.
 
 ### Examples
 
