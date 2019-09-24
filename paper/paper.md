@@ -35,15 +35,17 @@ method for extracting ground points from unclassified point clouds, and
 may also be useful for detailed vegetation height measurements in forestry or
 rangeland ecology. The method’s implementation uses Numpy, scikit-learn, and
 PDAL and it is intended to be easy to extend to other supervised classification
-methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011]. It also
-includes a preprocessing tool to project point colors from overhead imagery
-onto a georeferenced point cloud using PDAL (e.g., colorizing single-channel lidar data with aerial imagery).
-
-The core functionality builds on a popular open source algorithm, multiscale curvature
+methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011]. The core 
+functionality builds on a popular open source algorithm, multiscale curvature
 classification (MCC) [@evans2007], by training a support vector machine
 classifier using color features of vegetation points and updating ground
-classified points according to color similarity. This new two-stage algorithm,
-MCC-RGB, requires fewer iterations than the MCC method and removes low vegetation points in settings that can challenge MCC. Users can choose to re-classify ground points in a single step or at user defined height ranges representing multiple vegetation classes. The package provides a Python API to both algorithms.
+classified points according to color similarity. 
+
+This new two-stage algorithm, MCC-RGB, requires fewer iterations than the MCC 
+method and removes low vegetation points in settings that can challenge MCC. 
+Users can choose to re-classify ground points in a single step or at user 
+defined height ranges representing multiple vegetation classes. The package 
+provides a Python API to both methods.
 
 # Acknowledgements
 
