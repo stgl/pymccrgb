@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-pymccrgb: Classifying point clouds with color features
-======================================================
+pymccrgb: Classifying point clouds with color attributes 
+========================================================
 
 ``pymccrgb`` is a Python package for curvature- and color-based point classification. 
 
@@ -27,7 +27,7 @@ Evans, J. S., & Hudak, A. T. 2007. A multiscale curvature algorithm for classify
    examples/mcc-rgb.ipynb
 
 .. toctree::
-   :maxdepth: 2 
+   :maxdepth: 3 
    :caption: API documentation
 
    pymccrgb 
