@@ -17,24 +17,32 @@ def make_sgd_pipeline(
 ):
     """ Returns an sklearn Pipeline for SGD classification with an RBF kernel
 
-    Args:
-        X_train: An n x p array of training examples
-        y_train: An n x 1 array of training labels
+    Parameters
+    ----------
+        X_train: array
+            An n x p array of training examples
+        y_train: array
+            An n x 1 array of training labels
 
-    Optional args:
-        n_components: The number of RBF components to use
+        n_components: int
+            The number of RBF components to use
             (Default: 1000)
-        gamma: The gamma/variance parameter of the RBF kernel
-            (Default: 10)
-        alpha: The penalty parameter of the SGD/SVM classifier
+        gamma: float
+            The gamma/variance parameter of the RBF kernel
+            (Default: 0.01)
+        alpha: float
+            The penalty parameter of the SGD/SVM classifier
             (Default: 0.0001)
-        max_iter: The maximum number of iterations to fit the classifier
+        max_iter: int 
+            The maximum number of iterations to fit the classifier
             (Default: 10)
-        n_jobs: The number of jobs to use in fitting the classifier
+        n_jobs: int
+            The number of jobs to use in fitting the classifier
             (Default: -1, Use all cores)
         Any other keyword argument to sklearn.linear_model.SGDClassifier
 
-    Returns:
+    Returns
+    -------
         A trained pipeline composed of an RBF transformer and SGD classifier
     """
     estimators = [

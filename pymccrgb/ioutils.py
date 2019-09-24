@@ -10,19 +10,26 @@ DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
 def load_data(filename, usecols=None, userows=None, nrows=None):
     """ Loads a point cloud as numpy array
 
-    Args:
-        filename: Filename of text file containing point cloud
+    Parameters
+    ----------
+        filename: str
+            Filename of text file containing point cloud
 
-        usecols: List of column indices to load
+        usecols: list
+            List of column indices (text file) or names (LAS file) to load
             Default: First six columns, e.g.,  (x, y, z, r, g, b)
 
-        userows: List of rows to load. Overrides nrows argument
+        userows: list
+            List of rows to load. Overrides nrows argument
             Default: All rows
 
-        nrows: Number of random rows to load. Ignored if userows is given.
+        nrows: int
+            Number of random rows to load. Ignored if userows is given.
             Default: Not used.
 
-    Returns: A data array of shape (nrows x ncols)
+    Returns
+    -------
+        A data array of shape (nrows x ncols)
     """
     if filename.endswith(".csv") or filename.endswith(".txt"):
         if usecols is None:
@@ -42,19 +49,26 @@ def load_data(filename, usecols=None, userows=None, nrows=None):
 def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None):
     """ Loads a point cloud from text file as numpy array
 
-    Args:
-        filename: Filename of text file containing point cloud
+    Parameters
+    ----------
+        filename: str
+            Filename of text file containing point cloud
 
-        usecols: List of column indices to load
+        usecols: list
+            List of column indices to load
             Default: First six columns, e.g.,  (x, y, z, r, g, b)
 
-        userows: List of rows to load. Overrides nrows argument
+        userows: list 
+            List of rows to load. Overrides nrows argument
             Default: All rows
 
-        nrows: Number of random rows to load. Ignored if userows is given.
+        nrows: int
+            Number of random rows to load. Ignored if userows is given.
             Default: Not used.
 
-    Returns: A data array of shape (nrows x ncols)
+    Returns
+    -------
+        A data array of shape (nrows x ncols)
     """
 
     if userows is None:
@@ -84,19 +98,26 @@ def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
 
     Theoretically, any file with a PDAL reader can be read with load_las
 
-    Args:
-        filename: Filename of LAS or LAZ file containing point cloud
+    Parameters
+    ----------
+        filename: str
+            Filename of LAS or LAZ file containing point cloud
 
-        usecols: List of column names to load
+        usecols: list
+            List of column names to load
             Default: ['X', 'Y', 'Z', 'Red', 'Green', 'Blue']
 
-        userows: List of rows to load. Overrides nrows argument
+        userows: list
+            List of rows to load. Overrides nrows argument
             Default: All rows
 
-        nrows: Number of random rows to load. Ignored if userows is given.
+        nrows: int
+            Number of random rows to load. Ignored if userows is given.
             Default: Not used.
 
-    Returns: A data array of shape (nrows x ncols)
+    Returns
+    -------
+        A data array of shape (nrows x ncols)
     """
 
     json = '{"pipeline": ["' + filename + '"]}'

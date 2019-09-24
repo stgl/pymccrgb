@@ -21,23 +21,30 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 
     Based on MCC algorithm implemented in [1, 2].
 
-    Args:
-        data: A n x 3 (or more) data matrix with rows [x, y, z, ...]
+    Parameters
+    ----------
+        data: array
+            A n x 3 (or more) data matrix with rows [x, y, z, ...]
 
-        scale: The interpolation scale. This defines the resolution of the
+        scale: float
+            The interpolation scale. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each intrpolation point.
 
-        tol: The height tolerance. Points exceeding the durface by more than
+        tol: float
+            The height tolerance. Points exceeding the durface by more than
             tol units are classified as nonground
 
-        downsample: If True, use a downsampled dataset for interpolation.
+        downsample: bool
+            If True, use a downsampled dataset for interpolation.
             Not implemented.
 
-    Returns:
+    Returns
+    -------
         An n x 1 array of point class labels. 1 is ground, and 0 is nonground.
 
-    References:
+    References
+    ----------
         [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
             algorithm for classifying discrete return LiDAR in forested
             environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
@@ -70,26 +77,35 @@ def mcc(
 
     Based on MCC algorithm implemented in [1, 2].
 
-    Args:
-        data: A n x d data matrix with rows [x, y, z, ...]
+    Parameters
+    ----------
+        data: array
+            A n x d data matrix with rows [x, y, z, ...]
 
-        scales: The interpolation scales. This defines the resolution of the
+        scales: list
+            The interpolation scales. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each intrpolation point. Defaults to [0.5, 1, 1.5]
             meters.
         
-        tols: The height tolerances. Points exceeding the durface by more than
+        tols: list
+            The height tolerances. Points exceeding the durface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
         
-        threshs: The convergence thresholds as percentages. Defaults to
+        threshs: list
+            The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
 
-    Returns:
-        data: An m x d array of ground points
+    Returns
+    -------
+        data: array
+            An m x d array of ground points
         
-        labels: An n x 1 array of labels (1 is ground, 0 is nonground)
+        labels: array
+            An n x 1 array of labels (1 is ground, 0 is nonground)
 
-    References:
+    References
+    ----------
         [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
             algorithm for classifying discrete return LiDAR in forested
             environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
@@ -159,42 +175,56 @@ def mcc_rgb(
     that ground points are reclassified based on their color similarity to
     nonground points.
 
-    Args:
-        data: A n x d data matrix with rows [x, y, z, r, g, b ...]
+    Parameters
+    ----------
+        data: array
+            A n x d data matrix with rows [x, y, z, r, g, b ...]
 
-        scales: The interpolation scales. This defines the resolution of the
+        scales: list
+            The interpolation scales. This defines the resolution of the
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each interpolation point. Defaults to [0.5, 1, 1.5]
             meters. Scale domains are processed in order of increasing scale.
 
-        tols: The height tolerances. Points exceeding the surface by more than
+        tols: list
+            The height tolerances. Points exceeding the surface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
 
-        threshs: The convergence thresholds as percentages. Defaults to
+        threshs: list
+            The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
 
-        training_scales: The training interpolation scales.
+        training_scales: list
+            The training interpolation scales.
             This defaults to the first scale domain (e.g., 0.5). Both
             training_scales and training_tols must be specified;
             otherwise the defaults are used.
 
-        training_tols: The training relative heights. Defaults to the first
+        training_tols: list
+            The training relative heights. Defaults to the first
             height tolerance (e.g., 0.3). Can be specified as a list of 
 
-        n_train: The total number of points to use for training the color
+        n_train: int
+            The total number of points to use for training the color
             classifier. Defaults to 1E5.
 
-        max_iter: Maximum number of iterations in a scale domain.
+        max_iter: int 
+            Maximum number of iterations in a scale domain.
             Defaults to 20.
 
-        seed: Optional seed value for selecting training data.
+        seed: int
+            Optional seed value for selecting training data.
 
-    Returns:
-        data: An m x d array of ground points
+    Returns
+    -------
+        data: array
+            An m x d array of ground points
         
-        labels: An n x 1 array of labels (1 is ground, 0 is nonground)
+        labels: array
+            An n x 1 array of labels (1 is ground, 0 is nonground)
 
-        updated: An n x 1 array of labels indicating whether the point was
+        updated: array
+            An n x 1 array of labels indicating whether the point was
             updated in an MCC-RGB step. -1 indicates the point's classification
             was not updated. If there are multiple training scales,
             this will be the index of the scale and tolerance range defined

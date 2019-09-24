@@ -11,10 +11,14 @@ from shapely.geometry import shape, Polygon
 def crop_to_polygon(src, poly_filename, dest=None):
     """ Crops an input point cloud to a polygon
 
-    Args:
-        src: The filename of the pointcloud to crop
-        poly: The filename of the cropping polygon
-        dest: The optional output filename. Default is to append "_crop" to the
+    Parameters
+    ----------
+        src: str
+            The filename of the pointcloud to crop
+        poly: str
+            The filename of the cropping polygon
+        dest: str
+            The optional output filename. Default is to append "_crop" to the
             source filename
     """
 
@@ -74,7 +78,8 @@ def equal_sample(X, y, size=100, seed=None):
 
     Assumes y contains discrete labels 0, ..., ymax
 
-    Raises:
+    Raises
+    ------
         A ValueError if there are insufficient data in a particular class
     """
 
@@ -106,7 +111,8 @@ def stratified_sample(X, y, size=100, seed=None):
 
     Assumes y contains discrete labels 0, ..., ymax
 
-    Raises:
+    Raises
+    ------
         A ValueError if there are insufficient data in a particular class
     """
 
