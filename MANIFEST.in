@@ -1,1 +1,3 @@
 include pymccrgb/data/*.laz
+include pymccrgb/tests/data/*.laz
+include pymccrgb/tests/output/*.npy
