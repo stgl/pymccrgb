@@ -1,1 +1,1 @@
-include docs/source/examples/*.laz
+include pymccrgb/data/*.laz
