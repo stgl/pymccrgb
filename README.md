@@ -24,7 +24,7 @@ git clone https://github.com/rmsare/pymccrgb
 cd pymccrgb
 conda env create -f environment.yml
 conda activate pymcc
-pip install .
+pip install pymccrgb
 py.test pymccrgb/tests
 ```
 
