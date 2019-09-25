@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.1.0",
     author=["Robert Sare", "George Hilley"],
     author_email="rmsare@stanford.edu",
-    description="A Python package for poitn cloud classification using color and curavature",
+    description="A Python package for point cloud classification using color and curvature",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
