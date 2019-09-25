@@ -17,13 +17,14 @@ who want to classify point clouds for topographic analysis, canopy height measur
 
 ### Installation
 
-If LibLAS is installed, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to install the package and the rest of the dependencies:
+If LibLAS is installed, you can [use a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with `conda` or `venv` to install the package and the rest of the dependencies:
 
 ```bash
 git clone https://github.com/rmsare/pymccrgb
 cd pymccrgb
 conda env create -f environment.yml
 conda activate pymcc
+pip install .
 py.test pymccrgb/tests
 ```
 

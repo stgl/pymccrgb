@@ -1,7 +1,8 @@
 Installation
 ============
 
-``pymccrgb`` is hosted on GitHub. You can install it with
+``pymccrgb`` is hosted on GitHub. You can install it with ``conda`` or 
+``virtualenv`` in a virtual environment.
 
 .. code-block:: bash
 
@@ -9,6 +10,7 @@ Installation
     cd pymccrgb
     conda env create -f environment.yml
     conda activate pymcc
+    pip install .
     py.test pymccrgb/tests
 
 The package requires several C dependencies that may not be installed on your
