@@ -4,9 +4,8 @@ import os
 
 from .ioutils import load_las
 
-directories = os.path.dirname(__file__)
-path = "/".join(directories.split("/")[0:-1])
-DATA_DIRECTORY = os.path.join(path, "docs/source/examples/data")
+path = os.path.dirname(__file__)
+DATA_DIRECTORY = os.path.join(path, "data")
 
 
 def load_kaibab_lidar(npoints=None):
