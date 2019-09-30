@@ -17,7 +17,10 @@ who want to classify point clouds for topographic analysis, canopy height measur
 
 ### Installation
 
-If LibLAS is installed, you can [create a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with `conda` or `venv` to install the package and the rest of the dependencies:
+This package is developed for Linux/OS X and Python 3.6+. It depends on common 
+Python packagess (sklearn, numpy), the LibLAS point cloud library, and the [`pymcc` MCC bindings](https://github.com/stgl/pymcc) for Python.
+
+If LibLAS is installed, you can [create a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with `conda` or `venv` to install the package and its dependencies:
 
 ```bash
 git clone https://github.com/rmsare/pymccrgb
@@ -29,8 +32,6 @@ py.test pymccrgb/tests
 ```
 
 ### Requirements
-
-This package is developed for Linux/OS X and Python 3.6+.
 
 The LibLAS C library is required for MCC and `pymccrgb`. The MCC wrapper also 
 requires Boost and the C++11 standard library, which are likely installed as 
