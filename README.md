@@ -18,7 +18,7 @@ who want to classify point clouds for topographic analysis, canopy height measur
 ### Installation
 
 This package is developed for Linux/OS X and Python 3.6+. It depends on common 
-Python packagess (sklearn, numpy), the LibLAS point cloud library, and the [`pymcc` MCC bindings](https://github.com/stgl/pymcc) for Python.
+Python packages like sklearn, numpy, the LibLAS C API, and [MCC Python bindings](https://github.com/stgl/pymcc).
 
 If LibLAS is installed, you can [create a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with `conda` or `venv` to install the package and its dependencies:
 
