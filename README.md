@@ -55,6 +55,8 @@ instructions for installing LibLAS from source.
 
 ### Examples
 
+Example notebooks are available in the docs or at [docs/source/examples](docs/source/examples).
+
 #### Topography under tree cover
 
 ```python
@@ -76,13 +78,11 @@ plot_results(data, labels_mcc, labels_mccrgb)
 
 [![MCC results](docs/img/mccrgb.png)]()
 
-Results of MCC and MCC-RGB on forested area near Mammoth Mountain, CA. 
+Results of MCC and MCC-RGB on a forested area near Mammoth Mountain, CA. 
 
 ### Documentation
 
-Read the documentation for example use cases, an API reference, and more. They
-are hosted at [pymccrgb.readthedocs.io](https://pymccrgb.readthedocs.io). Example
-notebooks are available in the docs or at [docs/source/examples](docs/source/examples).
+Read the documentation for example use cases, an API reference, and more at [pymccrgb.readthedocs.io](https://pymccrgb.readthedocs.io). 
 
 ### Contributing
 
