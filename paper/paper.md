@@ -35,7 +35,7 @@ method for extracting ground points from unclassified point clouds, and
 may also be useful for detailed vegetation height measurements in forestry or
 rangeland ecology. The method’s implementation uses Numpy, scikit-learn, and
 PDAL and it is intended to be easy to extend to other supervised classification
-methods or point classes [@pdal2018,@pedregosa2011,@vanderwalt2011]. The core 
+methods or point classes [@pdal2018; @pedregosa2011; @vanderwalt2011]. The core 
 functionality builds on a popular open source algorithm, multiscale curvature
 classification (MCC) [@evans2007], by training a support vector machine
 classifier using color features of vegetation points and updating ground
