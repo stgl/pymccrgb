@@ -1,1 +1,2 @@
-include pymccrgb/data/*.laz
+recursive-include pymccrgb/data/ *.laz
+recursive-include pymccrgb/tests *.py
