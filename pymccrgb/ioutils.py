@@ -1,5 +1,7 @@
 """ Convenience functions for loading point clouds in various formats """
 
+import os
+
 import numpy as np
 import pdal
 
@@ -145,3 +147,25 @@ def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
     data = np.array(data).reshape(nrows, ncols)
 
     return data
+
+
+def write_las(arr, filename):
+    write_pdal(arr, filename, writer="writers.las")
+
+
+def write_pdal(arr, filename, writer):
+    np.save(arr, "temp.npy")
+
+    json = (
+        '{"pipeline": [{"type": "readers.numpy", "filename": "temp.npy"}, {"type": "'
+        + writer
+        + '", "filename": "'
+        + filename
+        + '"}]}'
+    )
+    pipeline = pdal.Pipeline(json)
+    pipeline.validate()
+    pipeline.loglevel = 0
+    count = pipeline.execute()
+
+    os.remove("temp.npy")
