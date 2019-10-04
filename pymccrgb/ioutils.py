@@ -150,6 +150,9 @@ def read_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
 
 
 def write_dem(data, filename, resolution=1, radius=None):
+    if radius is None:
+        radius = resolution * np.sqrt(2)
+
     write_las(data, "temp.las")
 
     json = (
