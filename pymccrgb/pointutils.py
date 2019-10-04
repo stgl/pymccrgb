@@ -158,7 +158,3 @@ def stratified_sample(X, y, size=100, seed=None):
     y_sampled = np.vstack(ys)
 
     return X_sampled, y_sampled
-
-
-def write_dem(data, filename, resolution=1, radius=None):
-    pass

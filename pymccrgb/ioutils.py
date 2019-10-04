@@ -149,6 +149,26 @@ def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
     return data
 
 
+def write_dem(data, filename, resolution=1, radius=None):
+    write_las(data, "temp.las")
+
+    json = (
+            '{"pipeline": [{"type": "readers.las", "filename": "temp.las"}, {"type": "writers.gdal", "resolution": "'
+        + str(resolution)
+        + '", "radius": "'
+        + str(radius)
+        + '", "filename": "'
+        + filename
+        + '"}]}'
+    )
+    pipeline = pdal.Pipeline(json)
+    pipeline.validate()
+    pipeline.loglevel = 0
+    count = pipeline.execute()
+
+    os.remove("temp.las")
+
+
 def write_las(arr, filename):
     write_pdal(arr, filename, writer="writers.las")
 
