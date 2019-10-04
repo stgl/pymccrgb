@@ -9,7 +9,7 @@ DEFAULT_COLUMN_INDICES = range(6)
 DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
 DEFAULT_HEADER= "X,Y,Z,Red,Green,Blue"
 
-def load_data(filename, usecols=None, userows=None, nrows=None):
+def read_data(filename, usecols=None, userows=None, nrows=None):
     """ Loads a point cloud as numpy array
 
     Parameters
@@ -36,11 +36,11 @@ def load_data(filename, usecols=None, userows=None, nrows=None):
     if filename.endswith(".csv") or filename.endswith(".txt"):
         if usecols is None:
             usecols = DEFAULT_COLUMN_INDICES
-        data = load_txt(filename, usecols=usecols, userows=userows, nrows=nrows)
+        data = read_txt(filename, usecols=usecols, userows=userows, nrows=nrows)
     elif filename.endswith(".las") or filename.endswith(".laz"):
         if usecols is None:
             usecols = DEFAULT_COLUMN_NAMES
-        data = load_las(filename, usecols=usecols, userows=userows, nrows=nrows)
+        data = read_las(filename, usecols=usecols, userows=userows, nrows=nrows)
     else:
         raise ValueError(
             "Unsupported format provided. Please provide a CSV file (.txt or .csv) or LAS/LAZ file."
@@ -48,7 +48,7 @@ def load_data(filename, usecols=None, userows=None, nrows=None):
     return data
 
 
-def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None):
+def read_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None):
     """ Loads a point cloud from text file as numpy array
 
     Parameters
@@ -95,10 +95,10 @@ def load_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None)
     return np.array(data)
 
 
-def load_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
+def read_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
     """Loads a point cloud from a LAS or LAZ file into a Numpy array
 
-    Theoretically, any file with a PDAL reader can be read with load_las
+    Theoretically, any file with a PDAL reader can be read with read_las
 
     Parameters
     ----------

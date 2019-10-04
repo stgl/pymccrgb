@@ -2,7 +2,7 @@
 
 import os
 
-from .ioutils import load_las
+from .ioutils import read_las
 
 path = os.path.dirname(__file__)
 DATA_DIRECTORY = os.path.join(path, "data")
@@ -21,7 +21,7 @@ def load_kaibab_lidar(npoints=None):
         A data ndarray
     """
     filename = os.path.join(DATA_DIRECTORY, "kaibab_lidar.laz")
-    data = load_las(filename, nrows=npoints)
+    data = read_las(filename, nrows=npoints)
     return data
 
 
@@ -38,7 +38,7 @@ def load_mammoth_lidar(npoints=None):
         A data ndarray
     """
     filename = os.path.join(DATA_DIRECTORY, "mammoth_lidar.laz")
-    data = load_las(filename, nrows=npoints)
+    data = read_las(filename, nrows=npoints)
     return data
 
 
@@ -55,5 +55,5 @@ def load_mammoth_sfm(npoints=None):
         A data ndarray
     """
     filename = os.path.join(DATA_DIRECTORY, "mammoth_sfm.laz")
-    data = load_las(filename, nrows=npoints)
+    data = read_las(filename, nrows=npoints)
     return data
