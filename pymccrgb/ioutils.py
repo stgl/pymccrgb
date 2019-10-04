@@ -7,7 +7,7 @@ import pdal
 
 DEFAULT_COLUMN_INDICES = range(6)
 DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
-
+DEFAULT_HEADER= "X,Y,Z,Red,Green,Blue"
 
 def load_data(filename, usecols=None, userows=None, nrows=None):
     """ Loads a point cloud as numpy array
@@ -153,11 +153,11 @@ def write_las(arr, filename):
     write_pdal(arr, filename, writer="writers.las")
 
 
-def write_pdal(arr, filename, writer):
-    np.save(arr, "temp.npy")
+def write_pdal(arr, filename, writer, header=DEFAULT_HEADER):
+    np.savetxt("temp.csv", arr, header=header, delimiter=',', comments='')
 
     json = (
-        '{"pipeline": [{"type": "readers.numpy", "filename": "temp.npy"}, {"type": "'
+            '{"pipeline": [{"type": "readers.text", "filename": "temp.csv"}, {"type": "'
         + writer
         + '", "filename": "'
         + filename
@@ -168,4 +168,4 @@ def write_pdal(arr, filename, writer):
     pipeline.loglevel = 0
     count = pipeline.execute()
 
-    os.remove("temp.npy")
+    os.remove("temp.csv")
