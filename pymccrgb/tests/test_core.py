@@ -19,7 +19,7 @@ SEED_VALUE = 42
 
 class MCCTestCase(unittest.TestCase):
     def setUp(self):
-        self.data = pymccrgb.ioutils.load_las(
+        self.data = pymccrgb.ioutils.read_las(
             os.path.join(TEST_DATA_DIR, "points_rgb.laz")
         )
 
@@ -59,7 +59,7 @@ class MCCTestCase(unittest.TestCase):
 
 class MCCRGBTestCase(unittest.TestCase):
     def setUp(self):
-        self.data = pymccrgb.ioutils.load_las(
+        self.data = pymccrgb.ioutils.read_las(
             os.path.join(TEST_DATA_DIR, "points_rgb.laz")
         )
 

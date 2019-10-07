@@ -23,7 +23,7 @@ DEFAULT_FEATURE_INDEXES = [A_INDEX, B_INDEX, NGRDVI_INDEX]
 
 class ColorFeatureTestCase(unittest.TestCase):
     def setUp(self):
-        self.data = pymccrgb.ioutils.load_las(
+        self.data = pymccrgb.ioutils.read_las(
             os.path.join(TEST_DATA_DIR, "points_rgb.laz")
         )
         self.target = np.load(os.path.join(TEST_OUTPUT_DIR, "features_rgb.npy"))
