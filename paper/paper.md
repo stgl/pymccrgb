@@ -50,7 +50,7 @@ provides a Python API to both methods.
 # Acknowledgements
 
 Example data in this package was collected by the National Center for
-Airborne Laser Mapping and hosted by by the OpenTopography facility with
+Airborne Laser Mapping and hosted by the OpenTopography facility with
 support from the National Science Foundation under NSF award numbers
 1557484, 1557319, and 1557330.
 
