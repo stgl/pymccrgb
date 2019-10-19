@@ -7,7 +7,8 @@ import pdal
 
 DEFAULT_COLUMN_INDICES = range(6)
 DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
-DEFAULT_HEADER= "X,Y,Z,Red,Green,Blue"
+DEFAULT_HEADER = "X,Y,Z,Red,Green,Blue"
+
 
 def read_data(filename, usecols=None, userows=None, nrows=None):
     """ Loads a point cloud as numpy array
@@ -156,7 +157,7 @@ def write_dem(data, filename, resolution=1, radius=None):
     write_las(data, "temp.las")
 
     json = (
-            '{"pipeline": [{"type": "readers.las", "filename": "temp.las"}, {"type": "writers.gdal", "resolution": "'
+        '{"pipeline": [{"type": "readers.las", "filename": "temp.las"}, {"type": "writers.gdal", "resolution": "'
         + str(resolution)
         + '", "radius": "'
         + str(radius)
@@ -177,10 +178,10 @@ def write_las(arr, filename):
 
 
 def write_pdal(arr, filename, writer, header=DEFAULT_HEADER):
-    np.savetxt("temp.csv", arr, header=header, delimiter=',', comments='')
+    np.savetxt("temp.csv", arr, header=header, delimiter=",", comments="")
 
     json = (
-            '{"pipeline": [{"type": "readers.text", "filename": "temp.csv"}, {"type": "'
+        '{"pipeline": [{"type": "readers.text", "filename": "temp.csv"}, {"type": "'
         + writer
         + '", "filename": "'
         + filename

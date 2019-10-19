@@ -8,7 +8,7 @@ from sklearn.pipeline import Pipeline
 def make_sgd_pipeline(
     X_train,
     y_train,
-    n_components=100,
+    n_components=1000,
     gamma=0.01,
     alpha=0.0001,
     max_iter=10,
