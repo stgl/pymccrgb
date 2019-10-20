@@ -26,5 +26,6 @@ install:
   - conda install black -y -c conda-forge
 
 script:
+  - >
     black --check pymccrgb/*.py
     py.test pymccrgb/tests
