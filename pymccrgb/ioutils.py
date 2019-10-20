@@ -44,7 +44,8 @@ def read_data(filename, usecols=None, userows=None, nrows=None):
         data = read_las(filename, usecols=usecols, userows=userows, nrows=nrows)
     else:
         raise ValueError(
-            "Unsupported format provided. Please provide a CSV file (.txt or .csv) or LAS/LAZ file."
+            "Unsupported format provided. Please provide a CSV file"
+            "(.txt or .csv) or LAS/LAZ file."
         )
     return data
 
@@ -61,7 +62,7 @@ def read_txt(filename, usecols=DEFAULT_COLUMN_INDICES, userows=None, nrows=None)
             List of column indices to load
             Default: First six columns, e.g.,  (x, y, z, r, g, b)
 
-        userows: list 
+        userows: list
             List of rows to load. Overrides nrows argument
             Default: All rows
 
@@ -127,7 +128,7 @@ def read_las(filename, usecols=DEFAULT_COLUMN_NAMES, userows=None, nrows=None):
     pipeline = pdal.Pipeline(json)
     pipeline.validate()
     pipeline.loglevel = 0
-    count = pipeline.execute()
+    _ = pipeline.execute()
 
     out = pipeline.arrays[0]
     if userows is None:
@@ -168,7 +169,7 @@ def write_dem(data, filename, resolution=1, radius=None):
     pipeline = pdal.Pipeline(json)
     pipeline.validate()
     pipeline.loglevel = 0
-    count = pipeline.execute()
+    _ = pipeline.execute()
 
     os.remove("temp.las")
 
@@ -190,6 +191,6 @@ def write_pdal(arr, filename, writer, header=DEFAULT_HEADER):
     pipeline = pdal.Pipeline(json)
     pipeline.validate()
     pipeline.loglevel = 0
-    count = pipeline.execute()
+    _ = pipeline.execute()
 
     os.remove("temp.csv")

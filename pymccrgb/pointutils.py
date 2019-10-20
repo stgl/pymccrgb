@@ -2,7 +2,6 @@
 
 import fiona
 import numpy as np
-import pdal
 import subprocess
 
 from scipy.spatial import cKDTree
@@ -16,7 +15,7 @@ def crop_to_polygon(src, poly_filename, dest=None):
     ----------
         src: str
             The filename of the pointcloud to crop
-        poly: str
+        poly_filename: str
             The filename of the cropping polygon
         dest: str
             The optional output filename. Default is to append "_crop" to the
@@ -25,7 +24,7 @@ def crop_to_polygon(src, poly_filename, dest=None):
 
     if dest is None:
         dest = src.replace(".", "_crop.")
-    features = fiona.open(poly)
+    features = fiona.open(poly_filename)
     geom = shape(features[0]["geometry"])
     wkt = Polygon(geom.exterior.coords).wkt
     command = [
@@ -75,7 +74,7 @@ def sample_point_cloud(source, target, sample_indices=[2]):
 
         target: array
             Target point cloud for sample locations
-        
+
         sample_indices: list
             List of indices to sample from source. Defaults to 2 (z or height
             dimension)
@@ -87,7 +86,14 @@ def sample_point_cloud(source, target, sample_indices=[2]):
     sample_indices = np.array(sample_indices)
     tree = cKDTree(source[:, 0:2])
     dist, idx = tree.query(target, n_jobs=-1)
-    output = np.hstack([target, source[idx[:, None], sample_indices].reshape((len(idx), len(sample_indices)))])
+    output = np.hstack(
+        [
+            target,
+            source[idx[:, None], sample_indices].reshape(
+                (len(idx), len(sample_indices))
+            ),
+        ]
+    )
     return output
 
 

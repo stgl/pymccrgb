@@ -107,7 +107,7 @@ def plot_points(data, axes="xy", cmax=2 ** 8, ax=None):
         x = y
         y = z
     else:
-        raise ValueError(f"axes must be one of 'xy', 'xz', or 'yz'. Got {axes}")
+        raise ValueError("axes must be one of 'xy', 'xz', or 'yz'. Got " + str(axes))
 
     if ax is None:
         fig, ax = plt.subplots(1, 1)
@@ -138,7 +138,7 @@ def plot_points_3d(data, ax=None, **kwargs):
 
 
 @style_plot
-def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
+def plot_histogram_by_class_method(data, labels1, labels2, updated, xlabel="NGRDVI"):
     brown = "#8c564b"
     grn = "#2ca02c"
 
@@ -148,7 +148,6 @@ def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
     mask = labels1 == 1
     freq, bins = np.histogram(data[mask], bins=50, density=True)
     wid = np.diff(bins)[0]
-    ymax = freq.max()
 
     ax[0].bar(
         bins[:-1],
@@ -163,7 +162,6 @@ def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
     mask = labels1 == 0
     freq, bins = np.histogram(data[mask], bins=50, density=True)
     wid = np.diff(bins)[0]
-    ymax = freq.max()
 
     ax[0].bar(
         bins[:-1],
@@ -184,14 +182,12 @@ def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
     mask = labels2 == 1
     freq, bins = np.histogram(data[mask], bins=50, density=True)
     wid = np.diff(bins)[0]
-    ymax = freq.max()
 
     ax[1].bar(bins[:-1], freq, facecolor=brown, width=wid, alpha=0.8, align="edge")
 
     mask = labels2 == 0
     freq, bins = np.histogram(data[mask], bins=50, density=True)
     wid = np.diff(bins)[0]
-    ymax = freq.max()
 
     ax[1].bar(bins[:-1], freq, facecolor=grn, width=wid, alpha=0.8, align="edge")
 
@@ -202,7 +198,6 @@ def plot_histogram_by_class_method(data, labels1, labels2, xlabel="NGRDVI"):
     mask = updated & labels1
     freq, bins = np.histogram(data[mask], bins=50, density=True)
     wid = np.diff(bins)[0]
-    ymax = freq.max()
 
     ax[2].bar(bins[:-1], freq, facecolor=grn, width=wid, alpha=0.8, align="edge")
 

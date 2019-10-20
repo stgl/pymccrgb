@@ -23,7 +23,6 @@ def make_sgd_pipeline(
             An n x p array of training examples
         y_train: array
             An n x 1 array of training labels
-
         n_components: int
             The number of RBF components to use
             (Default: 1000)
@@ -33,7 +32,7 @@ def make_sgd_pipeline(
         alpha: float
             The penalty parameter of the SGD/SVM classifier
             (Default: 0.0001)
-        max_iter: int 
+        max_iter: int
             The maximum number of iterations to fit the classifier
             (Default: 10)
         n_jobs: int

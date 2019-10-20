@@ -87,11 +87,11 @@ def mcc(
             interpolated surface, which is calculated by a 3 x 3 windowed
             mean around each intrpolation point. Defaults to [0.5, 1, 1.5]
             meters.
-        
+
         tols: list
             The height tolerances. Points exceeding the durface by more than
             tol units are classified as nonground. Deaults to 0.3 meters.
-        
+
         threshs: list
             The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
@@ -100,7 +100,7 @@ def mcc(
     -------
         data: array
             An m x d array of ground points
-        
+
         labels: array
             An n x 1 array of labels (1 is ground, 0 is nonground)
 
@@ -202,13 +202,14 @@ def mcc_rgb(
 
         training_tols: list
             The training relative heights. Defaults to the first
-            height tolerance (e.g., 0.3). Can be specified as a list of 
+            height tolerance (e.g., 0.3). Can be specified as a list or
+            single value
 
         n_train: int
             The total number of points to use for training the color
             classifier. Defaults to 1E5.
 
-        max_iter: int 
+        max_iter: int
             Maximum number of iterations in a scale domain.
             Defaults to 20.
 
@@ -219,7 +220,7 @@ def mcc_rgb(
     -------
         data: array
             An m x d array of ground points
-        
+
         labels: array
             An n x 1 array of labels (1 is ground, 0 is nonground)
 
@@ -326,7 +327,7 @@ def mcc_rgb(
                     y[(y == 1) & (y_pred == 0)] = 0
                 except ValueError as e:
                     print("Skipping classification update. ")
-                    print(f"ValueError: {e}")
+                    print("ValueError: " + str(e))
 
             ground = y == 1
             data = data[ground, :]

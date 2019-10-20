@@ -76,7 +76,8 @@ def load_mammoth_lidar(npoints=None):
 
 
 def load_mammoth_sfm(npoints=None):
-    """Loads sample dataset from Mammoth Mountain, California, USA structure-from-motion dataset
+    """Loads sample dataset from Mammoth Mountain, California, USA
+    structure-from-motion dataset
 
     Parameters
     ----------
