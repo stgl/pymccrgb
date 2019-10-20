@@ -23,6 +23,8 @@ install:
   - conda info -a
   - conda env create -f environment.yml
   - conda activate pymcc
+  - conda install black -y -c conda-forge
 
 script:
+    black --check pymccrgb/*.py
     py.test pymccrgb/tests
