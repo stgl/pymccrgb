@@ -11,7 +11,7 @@ def make_sgd_pipeline(
     n_components=1000,
     gamma=0.01,
     alpha=0.0001,
-    max_iter=10,
+    max_iter=100,
     n_jobs=-1,
     **kwargs
 ):
