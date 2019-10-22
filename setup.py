@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pymccrgb",
-    version="0.1.4",
+    version="0.1.5",
     author=["Robert Sare", "George Hilley"],
     author_email="rmsare@stanford.edu",
     description="A Python package for point cloud classification using color and curvature",
@@ -15,6 +15,7 @@ setuptools.setup(
     url="https://github.com/rmsare/pymccrgb",
     packages=setuptools.find_packages(),
     include_package_data=True,
+    data_files=[("", ["LICENSE"])],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
