@@ -1,17 +1,13 @@
 Installation
 ============
 
-``pymccrgb`` is hosted on GitHub and PyPI. You can install it with ``conda`` or 
-``virtualenv`` in a virtual environment.
+``pymccrgb`` is hosted on GitHub and PyPI. You can install it with ``conda`` 
+ in a virtual environment.
 
 .. code-block:: bash
 
-    git clone https://github.com/rmsare/pymccrgb
-    cd pymccrgb
-    conda env create -f environment.yml
-    conda activate pymcc
-    pip install pymccrgb
-    py.test pymccrgb/tests
+    conda env create -n pymcc
+    conda install pymccrgb -c conda-forge
 
 The package requires several C dependencies that may not be installed on your
 system. They are:
@@ -21,14 +17,17 @@ system. They are:
 * Cmake
 * LibLAS 
 
-The virtual environment will include all of these except the LibLAS bindings.
+The virtual environment will include all of these whe nthe conda-forge package is installed. 
 
-``pymccrgb`` is developed for Linux and OS X. Windows is not currently supported.
+``pymccrgb`` is developed for Linux. OS X and Windows are not currently supported.
 
 Installing LibLAS
 -----------------
 
-If you are on a Debian-like Linux system, the LibLAS C API is availablein the
+LibLAS will be installed from conda-forge. If you need to install it manually,
+there are a couple of options.
+
+If you are on a Debian-like Linux system, the LibLAS C API is available in the
 ``liblas-c-dev`` package. It can be installed with ``apt-get``:
 
 .. code-block:: bash

@@ -17,37 +17,23 @@ who want to classify point clouds for topographic analysis, canopy height measur
 
 ### Installation
 
-This package is developed for Linux/OS X and Python 3.6+. It depends on common 
-Python packages like sklearn, numpy, the LibLAS C API, and [MCC Python bindings](https://github.com/stgl/pymcc).
+This package is developed for Linux and Python 3.6+. It depends on common 
+Python packages like sklearn, numpy, the LibLAS C API, and 
+[MCC Python bindings](https://github.com/stgl/pymcc).
 
-If LibLAS is installed, you can [create a virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with `conda` or `venv` to install the package and its dependencies:
+You can install it with `conda`:
 
 ```bash
-git clone https://github.com/rmsare/pymccrgb
-cd pymccrgb
-conda env create -f environment.yml
+conda env create -n pymcc
 conda activate pymcc
-pip install pymccrgb
-py.test pymccrgb/tests
+conda install pymccrgb -c conda-forge
 ```
 
 ### Requirements
 
 The LibLAS C library is required for MCC and `pymccrgb`. The MCC wrapper also 
-requires Boost and the C++11 standard library, which are likely installed as 
-system libraries.
-
-On Ubuntu/Debian, you can install LibLAS via `apt`:
-
-```bash
-sudo apt-get install liblas-c-dev
-```
-
-On OS X, it is [available through Homebrew](https://liblas.org/start.html#installation):
-
-```bash
-brew install liblas
-```
+requires Boost and the C++11 or later standard library. These are installed 
+with the conda package.
 
 Refer to the [documentation](https://pymccrgb.readthedocs.io/en/latest/installation.html)
 and the [LibLAS install guide](https://liblas.org/start.html#installation) for 
