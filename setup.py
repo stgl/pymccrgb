@@ -31,6 +31,7 @@ setuptools.setup(
         "numpy",
         "matplotlib",
         "pdal",
+        "pymcc_lidar",
         "scipy",
         "scikit-image",
         "scikit-learn",

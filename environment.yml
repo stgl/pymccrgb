@@ -1,6 +1,5 @@
 name: pymcc
 channels:
-  - anaconda 
   - conda-forge
 dependencies:
   - python=3.6
@@ -14,6 +13,5 @@ dependencies:
   - scikit-image
   - pdal
   - python-pdal
+  - pymcc_lidar
   - pytest
-  - pip:
-    - git+https://github.com/stgl/pymcc
