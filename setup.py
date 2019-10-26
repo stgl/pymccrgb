@@ -28,7 +28,6 @@ setuptools.setup(
     install_requires=[
         "cmake",
         "cython",
-        "fiona",
         "numpy",
         "matplotlib",
         "pdal",
