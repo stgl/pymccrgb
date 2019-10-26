@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pymccrgb",
-    version="0.1.6",
+    version="0.1.7",
     author=["Robert Sare", "George Hilley"],
     author_email="rmsare@stanford.edu",
     description="A Python package for point cloud classification using color and curvature",
@@ -36,5 +36,4 @@ setuptools.setup(
         "scikit-image",
         "scikit-learn",
     ],
-    dependency_links=["https://github.com/stgl/pymcc/tarball/master#egg=pymcc"],
 )

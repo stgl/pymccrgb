@@ -4,7 +4,6 @@ import numpy as np
 import subprocess
 
 from scipy.spatial import cKDTree
-from shapely.geometry import shape, Polygon
 
 
 def intersect_rows(arr1, arr2):
