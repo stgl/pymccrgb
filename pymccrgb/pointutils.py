@@ -1,44 +1,10 @@
 """ Utilties for common point cloud operations """
 
-import fiona
 import numpy as np
 import subprocess
 
 from scipy.spatial import cKDTree
 from shapely.geometry import shape, Polygon
-
-
-def crop_to_polygon(src, poly_filename, dest=None):
-    """ Crops an input point cloud to a polygon
-
-    Parameters
-    ----------
-        src: str
-            The filename of the pointcloud to crop
-        poly_filename: str
-            The filename of the cropping polygon
-        dest: str
-            The optional output filename. Default is to append "_crop" to the
-            source filename
-    """
-
-    if dest is None:
-        dest = src.replace(".", "_crop.")
-    features = fiona.open(poly_filename)
-    geom = shape(features[0]["geometry"])
-    wkt = Polygon(geom.exterior.coords).wkt
-    command = [
-        "pdal",
-        "translate",
-        "-f",
-        "filters.crop",
-        "-i",
-        src,
-        "-o",
-        dest,
-        "--filters.crop.polygon=" + wkt,
-    ]
-    subprocess.check_output(command)
 
 
 def intersect_rows(arr1, arr2):
