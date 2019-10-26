@@ -1,7 +1,6 @@
 """ Utilties for common point cloud operations """
 
 import numpy as np
-import subprocess
 
 from scipy.spatial import cKDTree
 
