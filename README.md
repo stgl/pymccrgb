@@ -21,7 +21,7 @@ This package is developed for Linux and Python 3.6+. It depends on common
 Python packages like sklearn, numpy, the LibLAS C API, and 
 [MCC Python bindings](https://github.com/stgl/pymcc).
 
-You can install it with `conda`:
+You can install it with `conda` or `pip`:
 
 ```bash
 conda env create -n pymcc
