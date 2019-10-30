@@ -53,7 +53,7 @@ Example data in this package was collected by the National Center for
 Airborne Laser Mapping and hosted by the OpenTopography facility with
 support from the National Science Foundation under NSF award numbers
 1557484, 1557319, and 1557330. We would like to thank Daniel Livingston and
-Mart\'{i} Bosch for their constructive reviews and editor Kristen Thyng for her
+Martí Bosch for their constructive reviews and editor Kristen Thyng for her
 editorial handling of the manuscript.
 
 # References
