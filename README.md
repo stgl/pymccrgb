@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/rmsare/pymccrgb.svg?branch=master)](https://travis-ci.com/rmsare/pymccrgb)
 [![Documentation Status](https://readthedocs.org/projects/pymccrgb/badge/?version=latest)](https://pymccrgb.readthedocs.io/en/latest/?badge=latest)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.01777/status.svg)](https://doi.org/10.21105/joss.01777)
 
 **pymccrgb** is a Python package for multiscale curvature classification of
 point clouds with color attributes. 
