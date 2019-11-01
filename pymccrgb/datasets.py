@@ -35,6 +35,7 @@ def load_dataset(filename, npoints=None):
 
     local_filename = os.path.join(LOCAL_DATA_PATH, filename)
     if not os.path.exists(local_filename):
+        print("Downloading sample data...")
         url = os.path.join(REMOTE_DATA_URL, filename)
         urlretrieve(url, local_filename)
 
