@@ -1,7 +1,7 @@
 Installation
 ============
 
-``pymccrgb`` is hosted on GitHub and PyPI. It requires LibLAS, Boost, and CMake. You can install it in a virtual environment.
+``pymccrgb`` is hosted on GitHub and PyPI. It requires LibLAS, Boost, and CMake and common Python packages like sklearn, skimage, and numpy.
 
 LibLAS must be installed first:
 
@@ -9,7 +9,7 @@ LibLAS must be installed first:
 
     sudo apt-get install liblas-c-dev
     
-Then create a new environment and install the package:
+Then create a new virtual environment and install the package:
 
 .. code-block:: bash
 
