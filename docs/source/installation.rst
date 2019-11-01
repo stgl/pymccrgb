@@ -1,11 +1,32 @@
 Installation
 ============
 
-``pymccrgb`` is hosted on GitHub and PyPI. You can install it with ``conda`` in a virtual environment.
+``pymccrgb`` is hosted on GitHub and PyPI. It requires LibLAS, Boost, and CMake.
+
+.. code-block:: bash
+
+    sudo apt-get install liblas-c-dev
+    
+.. code-block:: bash
+
+    git clone https://github.com/rmsare/pymccrgb
+    cd pymccrgb
+    conda env create -f environment.yml
+    conda activate pymcc
+    pip install pymccrgb
+    py.test pymccrgb/tests
+
+Conda installation
+------------------
+
+*Conda forge package coming soon*
+
+You can install it with ``conda`` in a virtual environment.
 
 .. code-block:: bash
 
     conda env create -n pymcc
+    conda activate pymcc
     conda install pymccrgb -c conda-forge
 
 The package requires several C dependencies that may not be installed on your
