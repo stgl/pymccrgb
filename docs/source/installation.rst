@@ -1,8 +1,7 @@
 Installation
 ============
 
-``pymccrgb`` is hosted on GitHub and PyPI. You can install it with ``conda`` 
- in a virtual environment.
+``pymccrgb`` is hosted on GitHub and PyPI. You can install it with ``conda`` in a virtual environment.
 
 .. code-block:: bash
 
