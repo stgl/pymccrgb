@@ -16,7 +16,7 @@ system. They are:
 * Cmake
 * LibLAS 
 
-The virtual environment will include all of these whe nthe conda-forge package is installed. 
+The virtual environment will include all of these when the conda-forge package is installed. 
 
 ``pymccrgb`` is developed for Linux. OS X and Windows are not currently supported.
 
