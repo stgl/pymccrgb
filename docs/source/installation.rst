@@ -43,7 +43,7 @@ system. They are:
 
 The virtual environment will include all of these when the conda-forge package is installed. 
 
-``pymccrgb`` is developed for Linux. OS X and Windows are not currently supported.
+``pymccrgb`` is developed for Linux. The package can be installed on OS X, but it and Windows are not currently supported.
 
 Installing LibLAS
 -----------------
