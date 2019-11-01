@@ -12,5 +12,7 @@ dependencies:
   - scikit-learn
   - scikit-image
   - python-pdal
-  - pymcc_lidar
   - pytest
+  #- pymcc_lidar
+  - pip:
+    - git+https://github.com/stgl/pymcc
