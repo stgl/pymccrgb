@@ -19,12 +19,12 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
     True, a down-sampled version of the data coordinates will be used when
     interpolating (currently not implemented).
 
-    Based on MCC algorithm implemented in [1, 2].
+    Based on MCC algorithm implemented in [1]_ and [2]_.
     
-    _[1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
-         algorithm for classifying discrete return LiDAR in forested
-         environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
-    _[2] https://sourceforge.net/p/mcclidar
+    .. [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+       algorithm for classifying discrete return LiDAR in forested
+       environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+    .. [2] https://sourceforge.net/p/mcclidar
 
     Parameters
     ----------
@@ -73,12 +73,12 @@ def mcc(
     is reached based on the percentage of points classified as ground. Only
     ground points are retained after each iteration.
 
-    Based on MCC algorithm implemented in [1, 2].
+    Based on MCC algorithm implemented in [1]_ and [2]_.
     
-    _[1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
-         algorithm for classifying discrete return LiDAR in forested
-         environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
-    _[2] https://sourceforge.net/p/mcclidar
+    .. [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+       algorithm for classifying discrete return LiDAR in forested
+       environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+    .. [2] https://sourceforge.net/p/mcclidar
 
     Parameters
     ----------
