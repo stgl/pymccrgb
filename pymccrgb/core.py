@@ -21,10 +21,10 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 
     Based on MCC algorithm implemented in [1, 2].
     
-    [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
-        algorithm for classifying discrete return LiDAR in forested
-        environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
-    [2] https://sourceforge.net/p/mcclidar
+    _[1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+         algorithm for classifying discrete return LiDAR in forested
+         environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+    _[2] https://sourceforge.net/p/mcclidar
 
     Parameters
     ----------
@@ -75,10 +75,10 @@ def mcc(
 
     Based on MCC algorithm implemented in [1, 2].
     
-    [1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
-        algorithm for classifying discrete return LiDAR in forested
-        environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
-    [2] https://sourceforge.net/p/mcclidar
+    _[1] Evans, Jeffrey S.; Hudak, Andrew T. 2007. A multiscale curvature
+         algorithm for classifying discrete return LiDAR in forested
+         environments. Geoscience and Remote Sensing. 45(4): 1029-1038.
+    _[2] https://sourceforge.net/p/mcclidar
 
     Parameters
     ----------
