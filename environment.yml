@@ -11,7 +11,6 @@ dependencies:
   - scipy
   - scikit-learn
   - scikit-image
-  - pdal
   - python-pdal
   - pymcc_lidar
   - pytest
