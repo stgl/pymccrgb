@@ -22,6 +22,20 @@ This package is developed for Linux and Python 3.6+. It depends on common
 Python packages like sklearn, numpy, the LibLAS C API, and 
 [MCC Python bindings](https://github.com/stgl/pymcc).
 
+You can install it with `conda` or `virtualenv` in a virtual environment.
+
+```bash
+git clone https://github.com/rmsare/pymccrgb
+cd pymccrgb
+conda env create -f environment.yml
+conda activate pymcc
+pip install pymccrgb
+py.test pymccrgb/tests
+```
+
+*(Conda package coming soon)*
+
+<!---
 You can install it with `conda` or `pip`:
 
 ```bash
@@ -29,6 +43,7 @@ conda env create -n pymcc
 conda activate pymcc
 conda install pymccrgb -c conda-forge
 ```
+--->
 
 ### Requirements
 
