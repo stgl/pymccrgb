@@ -162,6 +162,7 @@ def mcc_rgb(
     max_iter=20,
     seed=None,
     verbose=False,
+    **pipeline_kwargs
 ):
     """ Classifies ground points using the MCC-RGB algorithm
 
@@ -299,8 +300,10 @@ def mcc_rgb(
                     X_train, y_train = equal_sample(
                         X, y, size=int(n_train / 2), seed=seed
                     )
-                    pipeline = make_sgd_pipeline(X_train, y_train)
-                    y_pred = pipeline.predict(X)
+                    pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
+                    y_pred_ground = pipeline.predict(X[y == 1, :])
+                    y_pred = np.zeros_like(y)
+                    y_pred[y == 1] = y_pred_ground
 
                     # params = list(zip(training_scales, training_tols))
                     # update_step_idx = params.index((scale, tol))
@@ -315,7 +318,7 @@ def mcc_rgb(
                             "Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol)
                         )
                         print(
-                            "Removed {} nonground points ({:.2f} %)".format(
+                            "Reclassified {} ground points as nonground ({:.2f} %)".format(
                                 n_removed_clf, 100 * (n_removed_clf / n_points)
                             )
                         )
