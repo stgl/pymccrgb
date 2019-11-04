@@ -43,6 +43,9 @@ def make_sgd_pipeline(X_train, y_train, **kwargs):
     -------
         A trained pipeline composed of an RBF transformer and SGD classifier
     """
+    if y_train.ndim == 2:
+        y_train = y_train.ravel()
+
     n_components = kwargs.get("n_components", DEFAULT_PARAMETERS["n_components"])
     gamma = kwargs.get("gamma", DEFAULT_PARAMETERS["gamma"])
     alpha = kwargs.get("alpha", DEFAULT_PARAMETERS["alpha"])
