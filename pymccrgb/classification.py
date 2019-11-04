@@ -4,13 +4,11 @@ from sklearn.kernel_approximation import RBFSampler
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 
-DEFAULT_PARAMETERS = {"n_components": 100, "gamma": 0.01, "alpha": 0.001}
+DEFAULT_PARAMETERS = {"n_components": 100, "gamma": 0.01, "alpha": 0.001, "max_iter": 100, "n_jobs": -1}
 
 def make_sgd_pipeline(
     X_train,
     y_train,
-    max_iter=100,
-    n_jobs=-1,
     **kwargs
 ):
     """ Returns an sklearn Pipeline for SGD classification with an RBF kernel
@@ -45,6 +43,8 @@ def make_sgd_pipeline(
     n_components = kwargs.get("n_components", DEFAULT_PARAMETERS["n_components"])
     gamma = kwargs.get("gamma", DEFAULT_PARAMETERS["gamma"])
     alpha = kwargs.get("alpha", DEFAULT_PARAMETERS["alpha"])
+    max_iter = kwargs.get("max_iter", DEFAULT_PARAMETERS["max_iter"])
+    n_jobs = kwargs.get("n_jobs", DEFAULT_PARAMETERS["n_jobs"])
 
     estimators = [
         ("rbf", RBFSampler(gamma=gamma, n_components=n_components)),
