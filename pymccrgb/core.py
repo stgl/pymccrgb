@@ -163,7 +163,7 @@ def mcc_rgb(
     n_jobs=1,
     seed=None,
     verbose=False,
-    **pipeline_kwargs
+    **pipeline_kwargs,
 ):
     """ Classifies ground points using the MCC-RGB algorithm
 
@@ -296,6 +296,10 @@ def mcc_rgb(
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
             if update_step and first_iter:
+                if verbose:
+                    print("-" * 20)
+                    print("Classification update step")
+                    print("-" * 20)
                 try:
                     X = calculate_color_features(data)
                     X_train, y_train = equal_sample(
@@ -306,7 +310,9 @@ def mcc_rgb(
                     if n_jobs > 1 or n_jobs == -1:
                         if verbose:
                             print(f"Predicting in parallel using {n_jobs}")
+
                         from sklearn.externals.joblib import Parallel, delayed
+
                         pool = Parallel(n_jobs=n_jobs)
                         wrapper = delayed(pipeline.predict)
                         result = pool(wrapper(x.reshape(1, -1)) for x in X[y == 1, :])
@@ -322,9 +328,6 @@ def mcc_rgb(
 
                     if verbose:
                         n_removed_clf = np.sum((y == 1) & (y_pred == 0))
-                        print("-" * 20)
-                        print("Classification update step")
-                        print("-" * 20)
                         print(
                             "Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol)
                         )
