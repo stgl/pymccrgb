@@ -81,6 +81,24 @@ class MCCRGBTestCase(unittest.TestCase):
             "Classification is incorrect for default MCC-RGB configuration",
         )
 
+    def test_mcc_rgb_default_parallel(self):
+        test_points, test_labels = pymccrgb.core.mcc_rgb(
+            self.data, seed=SEED_VALUE, n_jobs=2, verbose=True
+        )
+        true_points, true_labels = np.load(
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy"),
+            allow_pickle=True,
+        )
+        self.assertTrue(
+            np.allclose(test_points, true_points),
+            "Ground points are incorrect for default MCC-RGB configuration with parallelization",
+        )
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
+            "Classification is incorrect for default MCC-RGB configuration with parallelization",
+        )
+
     def test_mcc_rgb_two_training_tols(self):
         test_points, test_labels = pymccrgb.core.mcc_rgb(
             self.data,
