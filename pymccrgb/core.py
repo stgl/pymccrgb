@@ -160,8 +160,10 @@ def mcc_rgb(
     training_tols=None,
     n_train=int(1e3),
     max_iter=20,
+    n_jobs=1,
     seed=None,
     verbose=False,
+    **pipeline_kwargs,
 ):
     """ Classifies ground points using the MCC-RGB algorithm
 
@@ -294,13 +296,31 @@ def mcc_rgb(
             update_step = scale in training_scales and tol in training_tols
             first_iter = niter == 0
             if update_step and first_iter:
+                if verbose:
+                    print("-" * 20)
+                    print("Classification update step")
+                    print("-" * 20)
                 try:
                     X = calculate_color_features(data)
                     X_train, y_train = equal_sample(
                         X, y, size=int(n_train / 2), seed=seed
                     )
-                    pipeline = make_sgd_pipeline(X_train, y_train)
-                    y_pred = pipeline.predict(X)
+                    pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
+
+                    if n_jobs > 1 or n_jobs == -1:
+                        if verbose:
+                            print(f"Predicting in parallel using {n_jobs}")
+
+                        from sklearn.externals.joblib import Parallel, delayed
+
+                        pool = Parallel(n_jobs=n_jobs)
+                        wrapper = delayed(pipeline.predict)
+                        result = pool(wrapper(x.reshape(1, -1)) for x in X[y == 1, :])
+                        y_pred_ground = np.array(result).ravel()
+                    else:
+                        y_pred_ground = pipeline.predict(X[y == 1, :])
+                    y_pred = np.zeros_like(y)
+                    y_pred[y == 1] = y_pred_ground
 
                     # params = list(zip(training_scales, training_tols))
                     # update_step_idx = params.index((scale, tol))
@@ -308,14 +328,11 @@ def mcc_rgb(
 
                     if verbose:
                         n_removed_clf = np.sum((y == 1) & (y_pred == 0))
-                        print("-" * 20)
-                        print("Classification update step")
-                        print("-" * 20)
                         print(
                             "Scale: {:.2f}, Relative height: {:.1e}".format(scale, tol)
                         )
                         print(
-                            "Removed {} nonground points ({:.2f} %)".format(
+                            "Reclassified {} ground points as nonground ({:.2f} %)".format(
                                 n_removed_clf, 100 * (n_removed_clf / n_points)
                             )
                         )
