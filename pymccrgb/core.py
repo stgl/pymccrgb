@@ -160,6 +160,7 @@ def mcc_rgb(
     training_tols=None,
     n_train=int(1e3),
     max_iter=20,
+    n_jobs=1,
     seed=None,
     verbose=False,
     **pipeline_kwargs
@@ -301,7 +302,17 @@ def mcc_rgb(
                         X, y, size=int(n_train / 2), seed=seed
                     )
                     pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
-                    y_pred_ground = pipeline.predict(X[y == 1, :])
+
+                    if n_jobs > 1 or n_jobs == -1:
+                        if verbose:
+                            print(f"Predicting in parallel using {n_jobs}")
+                        from sklearn.externals.joblib import Parallel, delayed
+                        pool = Parallel(n_jobs=n_jobs)
+                        wrapper = delayed(pipeline.predict)
+                        result = pool(wrapper(x.reshape(1, -1)) for x in X[y == 1, :])
+                        y_pred_ground = np.array(result).ravel()
+                    else:
+                        y_pred_ground = pipeline.predict(X[y == 1, :])
                     y_pred = np.zeros_like(y)
                     y_pred[y == 1] = y_pred_ground
 
