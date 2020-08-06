@@ -46,7 +46,8 @@ def classify_ground_mcc(data, scale, tol, downsample=False):
 
     Returns
     -------
-        An n x 1 array of point class labels. 1 is ground, and 0 is nonground.
+        An n x 1 array of point class labels. By default, 1 is ground,
+        and 0 is nonground.
     """
 
     if downsample:
@@ -63,6 +64,7 @@ def mcc(
     scales=[0.5, 1, 1.5],
     tols=[0.3, 0.3, 0.3],
     threshs=[1, 0.1, 0.01],
+    use_las_codes=False,
     verbose=False,
 ):
     """ Classifies ground points using the MCC algorithm
@@ -98,6 +100,10 @@ def mcc(
         threshs: list
             The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
+
+        use_las_codes: bool
+           If True, return LAS 1.4 classification codes (2 = ground,
+           4 = medium vegetation). Default False.
 
     Returns
     -------
@@ -148,6 +154,10 @@ def mcc(
             )
         )
 
+    if use_las_codes:
+        labels[labels == 0] = 4  # Vegetation
+        labels[labels == 1] = 2  # Ground
+
     return data, labels
 
 
@@ -162,6 +172,7 @@ def mcc_rgb(
     max_iter=20,
     n_jobs=1,
     seed=None,
+    use_las_codes=False,
     verbose=False,
     **pipeline_kwargs,
 ):
@@ -213,6 +224,10 @@ def mcc_rgb(
 
         seed: int
             Optional seed value for selecting training data.
+
+        use_las_codes: bool
+           If True, return LAS 1.4 classification codes (2 = ground,
+           4 = medium vegetation). Default False.
 
     Returns
     -------
@@ -365,5 +380,9 @@ def mcc_rgb(
                 n_ground, 100 * (n_ground / n_points)
             )
         )
+
+    if use_las_codes:
+        labels[labels == 0] = 4  # Vegetation
+        labels[labels == 1] = 2  # Ground
 
     return data, labels  # , updated
