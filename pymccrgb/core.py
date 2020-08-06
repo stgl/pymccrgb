@@ -64,7 +64,7 @@ def mcc(
     scales=[0.5, 1, 1.5],
     tols=[0.3, 0.3, 0.3],
     threshs=[1, 0.1, 0.01],
-    use_las=False,
+    use_las_codes=False,
     verbose=False,
 ):
     """ Classifies ground points using the MCC algorithm
@@ -101,7 +101,7 @@ def mcc(
             The convergence thresholds as percentages. Defaults to
             [1%, 0.1%, 0.01%]
 
-        use_las: bool
+        use_las_codes: bool
            If True, return LAS 1.4 classification codes (2 = ground,
            4 = medium vegetation). Default False.
 
@@ -154,7 +154,7 @@ def mcc(
             )
         )
 
-    if use_las:
+    if use_las_codes:
         labels[labels == 0] = 4  # Vegetation
         labels[labels == 1] = 2  # Ground
 
@@ -172,7 +172,7 @@ def mcc_rgb(
     max_iter=20,
     n_jobs=1,
     seed=None,
-    use_las=False,
+    use_las_codes=False,
     verbose=False,
     **pipeline_kwargs,
 ):
@@ -225,7 +225,7 @@ def mcc_rgb(
         seed: int
             Optional seed value for selecting training data.
 
-        use_las: bool
+        use_las_codes: bool
            If True, return LAS 1.4 classification codes (2 = ground,
            4 = medium vegetation). Default False.
 
@@ -381,7 +381,7 @@ def mcc_rgb(
             )
         )
 
-    if use_las:
+    if use_las_codes:
         labels[labels == 0] = 4  # Vegetation
         labels[labels == 1] = 2  # Ground
 
