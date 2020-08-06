@@ -56,6 +56,27 @@ class MCCTestCase(unittest.TestCase):
             "Classification is incorrect for default MCC configuration",
         )
 
+    def test_mcc_default_las_codes(self):
+        test_points, test_labels = pymccrgb.core.mcc(self.data,
+                                                     verbose=True,
+                                                     use_las_codes=True)
+        true_points, true_labels = np.load(
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mcc_default.npy"),
+            allow_pickle=True,
+        )
+        self.assertTrue(
+            np.allclose(test_points, true_points),
+            "Ground points are incorrect for default MCC configuration using LAS codes",
+        )
+
+        true_labels[true_labels == 0] = 4
+        true_labels[true_labels == 1] = 2
+
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
+            "Classification is incorrect for default MCC configuration using LAS codes",
+        )
 
 class MCCRGBTestCase(unittest.TestCase):
     def setUp(self):
@@ -79,6 +100,29 @@ class MCCRGBTestCase(unittest.TestCase):
             test_labels.tolist(),
             true_labels.tolist(),
             "Classification is incorrect for default MCC-RGB configuration",
+        )
+
+    def test_mcc_default_las_codes(self):
+        test_points, test_labels = pymccrgb.core.mcc_rgb(self.data,
+                                                         seed=SEED_VALUE,
+                                                         verbose=True,
+                                                         use_las_codes=True)
+        true_points, true_labels = np.load(
+            os.path.join(TEST_OUTPUT_DIR, f"ground_labels_mccrgb_default.npy"),
+            allow_pickle=True,
+        )
+        self.assertTrue(
+            np.allclose(test_points, true_points),
+            "Ground points are incorrect for default MCC configuration using LAS codes",
+        )
+
+        true_labels[true_labels == 0] = 4
+        true_labels[true_labels == 1] = 2
+
+        self.assertSequenceEqual(
+            test_labels.tolist(),
+            true_labels.tolist(),
+            "Classification is incorrect for default MCC configuration using LAS codes",
         )
 
     def test_mcc_rgb_default_parallel(self):
