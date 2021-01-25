@@ -386,3 +386,70 @@ def mcc_rgb(
         labels[labels == 1] = 2  # Ground
 
     return data, labels  # , updated
+
+def svm_color_classify(
+    training_data,
+    training_labels,
+    data,
+    n_train = 1E5,
+    seed = None
+):
+    """ Classifies ground points using the the color SVM classifier
+
+    Classifies ground and nonground (or "high") points by making an SVG
+    classifer based on training data and applying it to data.
+
+    Parameters
+    ----------
+        training_data: array
+            A m x d matrix of training data that has been classified [x, y, z, r, g, b ...]
+        training_lables: array
+            A m x 1 matrix of labels of the training data (1 is ground, 0 is nonground)
+        data: array
+            A n x d data matrix with rows to which the classification will be applied [x, y, z, r, g, b ...]
+        n_train: int
+            The total number of points to use for training the color
+            classifier. Defaults to 1E5.
+        seed: int
+            Optional seed value for selecting training data.
+
+    Returns
+    -------
+
+        labels: array
+            An n x 1 array of labels (1 is ground, 0 is nonground)
+
+    """
+
+    try:
+        X = calculate_color_features(training_data)
+        X_train, y_train = equal_sample(
+            X, training_labels, size=int(n_train / 2), seed=seed
+                    )
+        pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
+
+        X_data = calculate_color_features(data)
+        if n_jobs > 1 or n_jobs == -1:
+            if verbose:
+                print(f"Predicting in parallel using {n_jobs}")
+
+            from sklearn.externals.joblib import Parallel, delayed
+
+            pool = Parallel(n_jobs=n_jobs)
+            wrapper = delayed(pipeline.predict)
+            result = pool(wrapper(x.reshape(1, -1)) for x in X_data)
+            y_pred_ground = np.array(result).ravel()
+        else:
+            y_pred_ground = pipeline.predict(X_data)
+
+    except ValueError as e:
+        print("Skipping classification update. ")
+        print("ValueError: " + str(e))
+
+    labels = y_pred_ground == 1
+
+    if use_las_codes:
+        labels[labels == 0] = 4  # Vegetation
+        labels[labels == 1] = 2  # Ground
+
+    return labels
