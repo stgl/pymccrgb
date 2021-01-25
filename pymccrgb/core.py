@@ -427,10 +427,8 @@ def svm_color_classify(
 
     #try:
     X = calculate_color_features(training_data)
-    print('X', X)
     mask = np.isfinite(X).all(axis=-1)
     x = training_data[mask, :]
-    print('X', X)
     X = calculate_color_features(x)
     y = training_labels[mask]
     X_train, y_train = equal_sample(
@@ -443,10 +441,6 @@ def svm_color_classify(
     data_dup = copy(data)
     data_dup = data_dup[mask_data, :]
     X_data = calculate_color_features(data_dup)
-
-    print('X_train', X_train)
-    print('y_train', y_train)
-    print('data', X_data)
 
     if n_jobs > 1 or n_jobs == -1:
         if verbose:
@@ -464,7 +458,6 @@ def svm_color_classify(
     data_dup = data_dup[y_pred_ground,:]
 
     labels = intersect_rows(data_dup, data)
-    labels[i_data] = y_pred_ground
     #except ValueError as e:
     #    print("Skipping classification update. ")
     #    print("ValueError: " + str(e))
