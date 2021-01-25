@@ -438,6 +438,7 @@ def svm_color_classify(
 
     X_data = calculate_color_features(data)
 
+    print('X', X)
     print('X_train', X_train)
     print('y_train', y_train)
     print('data', X_data)
