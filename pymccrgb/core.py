@@ -442,12 +442,12 @@ def svm_color_classify(
             y_pred_ground = np.array(result).ravel()
         else:
             y_pred_ground = pipeline.predict(X_data)
-
+        labels = y_pred_ground == 1
     except ValueError as e:
         print("Skipping classification update. ")
         print("ValueError: " + str(e))
 
-    labels = y_pred_ground == 1
+
 
     if use_las_codes:
         labels[labels == 0] = 4  # Vegetation
