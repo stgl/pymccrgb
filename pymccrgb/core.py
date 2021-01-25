@@ -426,39 +426,39 @@ def svm_color_classify(
     """
 
     labels = np.zeros((data.shape[0],1))
-    try:
-        X = calculate_color_features(training_data)
-        mask = np.isfinite(X).all(axis=-1)
-        X = training_data[mask, :]
-        y = training_labels[mask]
-        X_train, y_train = equal_sample(
-            X, y, size=int(n_train / 2), seed=seed
-                    )
-        pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
+    #try:
+    X = calculate_color_features(training_data)
+    mask = np.isfinite(X).all(axis=-1)
+    X = training_data[mask, :]
+    y = training_labels[mask]
+    X_train, y_train = equal_sample(
+        X, y, size=int(n_train / 2), seed=seed
+                )
+    pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
-        X_data = calculate_color_features(data)
-        i_data = np.where(np.all(np.isfinite(X_data)))
+    X_data = calculate_color_features(data)
+    i_data = np.where(np.all(np.isfinite(X_data)))
 
-        print('X_train', X_train)
-        print('y_train', y_train)
-        print('data', X_data[i_data,:])
+    print('X_train', X_train)
+    print('y_train', y_train)
+    print('data', X_data[i_data,:])
 
-        if n_jobs > 1 or n_jobs == -1:
-            if verbose:
-                print(f"Predicting in parallel using {n_jobs}")
+    if n_jobs > 1 or n_jobs == -1:
+        if verbose:
+            print(f"Predicting in parallel using {n_jobs}")
 
-            from sklearn.externals.joblib import Parallel, delayed
+        from sklearn.externals.joblib import Parallel, delayed
 
-            pool = Parallel(n_jobs=n_jobs)
-            wrapper = delayed(pipeline.predict)
-            result = pool(wrapper(x.reshape(1, -1)) for x in X_data[i_data,:])
-            y_pred_ground = np.array(result).ravel()
-        else:
-            y_pred_ground = pipeline.predict(X_data[i_data,:])
-        labels[i_data] = y_pred_ground
-    except ValueError as e:
-        print("Skipping classification update. ")
-        print("ValueError: " + str(e))
+        pool = Parallel(n_jobs=n_jobs)
+        wrapper = delayed(pipeline.predict)
+        result = pool(wrapper(x.reshape(1, -1)) for x in X_data[i_data,:])
+        y_pred_ground = np.array(result).ravel()
+    else:
+        y_pred_ground = pipeline.predict(X_data[i_data,:])
+    labels[i_data] = y_pred_ground
+    #except ValueError as e:
+    #    print("Skipping classification update. ")
+    #    print("ValueError: " + str(e))
 
 
 
