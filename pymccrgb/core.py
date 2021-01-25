@@ -393,6 +393,7 @@ def svm_color_classify(
     data,
     n_train = 1E5,
     seed = None,
+    n_jobs=1,
     use_las_codes=False,
     verbose = False,
     **pipeline_kwargs
