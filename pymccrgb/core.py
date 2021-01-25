@@ -455,6 +455,7 @@ def svm_color_classify(
     else:
         y_pred_ground = pipeline.predict(X_data)
 
+    print(np.sum(y_pred_ground))
     data_dup = data_dup[y_pred_ground,:]
 
     labels = intersect_rows(data_dup, data)
