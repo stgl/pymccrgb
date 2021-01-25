@@ -392,7 +392,8 @@ def svm_color_classify(
     training_labels,
     data,
     n_train = 1E5,
-    seed = None
+    seed = None,
+    **pipeline_kwargs
 ):
     """ Classifies ground points using the the color SVM classifier
 
