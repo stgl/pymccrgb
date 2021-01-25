@@ -431,6 +431,7 @@ def svm_color_classify(
     print('X', X)
     mask = np.isfinite(X).all(axis=-1)
     X = training_data[mask, :]
+    print('X', X)
     y = training_labels[mask]
     X_train, y_train = equal_sample(
         X, y, size=int(n_train / 2), seed=seed
