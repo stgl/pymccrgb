@@ -425,7 +425,7 @@ def svm_color_classify(
 
     """
 
-    labels = zeros((data.shape[0],1))
+    labels = np.zeros((data.shape[0],1))
     try:
         X = calculate_color_features(training_data)
         i = np.all(np.isfinite(X), axis = 1)
