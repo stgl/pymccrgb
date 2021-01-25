@@ -428,6 +428,7 @@ def svm_color_classify(
     labels = np.zeros((data.shape[0],1))
     #try:
     X = calculate_color_features(training_data)
+    print('X', X)
     mask = np.isfinite(X).all(axis=-1)
     X = training_data[mask, :]
     y = training_labels[mask]
@@ -438,7 +439,7 @@ def svm_color_classify(
 
     X_data = calculate_color_features(data)
 
-    print('X', X)
+
     print('X_train', X_train)
     print('y_train', y_train)
     print('data', X_data)
