@@ -441,8 +441,8 @@ def svm_color_classify(
 
         print(X_train)
         print(y_train)
-        print(X_data[i_data,:])
-        
+        print(X_data[i_data[0],:])
+
         if n_jobs > 1 or n_jobs == -1:
             if verbose:
                 print(f"Predicting in parallel using {n_jobs}")
