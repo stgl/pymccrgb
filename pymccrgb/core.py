@@ -425,6 +425,7 @@ def svm_color_classify(
 
     """
 
+    labels = zeros((data.shape[0],1))
     try:
         X = calculate_color_features(training_data)
         i = np.all(np.isfinite(X), axis = 1)
@@ -447,8 +448,7 @@ def svm_color_classify(
             y_pred_ground = np.array(result).ravel()
         else:
             y_pred_ground = pipeline.predict(X_data[i_data,:])
-        labels = zeros((data.shape[0],1))
-        labels[i_data] = 1
+        labels[i_data] = y_pred_ground
     except ValueError as e:
         print("Skipping classification update. ")
         print("ValueError: " + str(e))
