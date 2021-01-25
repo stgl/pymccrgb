@@ -428,9 +428,11 @@ def svm_color_classify(
     labels = np.zeros((data.shape[0],1))
     try:
         X = calculate_color_features(training_data)
-        i = np.all(np.isfinite(X), axis = 1)
+        i = np.where(np.all(np.isfinite(X), axis = 1))
+        print(X[i,:])
+        print(training_labels[i])
         X_train, y_train = equal_sample(
-            X[i == True], training_labels[i == True], size=int(n_train / 2), seed=seed
+            X[i,:], training_labels[i], size=int(n_train / 2), seed=seed
                     )
         pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
