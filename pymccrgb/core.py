@@ -438,6 +438,11 @@ def svm_color_classify(
 
         X_data = calculate_color_features(data)
         i_data = np.where(np.all(np.isfinite(X_data)))
+
+        print(X_train)
+        print(y_train)
+        print(X_data[i_data,:])
+        
         if n_jobs > 1 or n_jobs == -1:
             if verbose:
                 print(f"Predicting in parallel using {n_jobs}")
