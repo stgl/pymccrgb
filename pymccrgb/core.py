@@ -425,13 +425,13 @@ def svm_color_classify(
 
     """
 
-    labels = np.zeros((data.shape[0],1))
     #try:
     X = calculate_color_features(training_data)
     print('X', X)
     mask = np.isfinite(X).all(axis=-1)
-    X = training_data[mask, :]
+    x = training_data[mask, :]
     print('X', X)
+    X = calculate_color_features(x)
     y = training_labels[mask]
     X_train, y_train = equal_sample(
         X, y, size=int(n_train / 2), seed=seed
@@ -439,7 +439,10 @@ def svm_color_classify(
     pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
     X_data = calculate_color_features(data)
-
+    mask_data = np.isfinite(X_data).all(axis=-1)
+    data_dup = copy(data)
+    data_dup = data_dup[mask_data, :]
+    X_data = calculate_color_features(data_dup)
 
     print('X_train', X_train)
     print('y_train', y_train)
@@ -457,6 +460,10 @@ def svm_color_classify(
         y_pred_ground = np.array(result).ravel()
     else:
         y_pred_ground = pipeline.predict(X_data)
+
+    data_dup = data_dup[y_pred_ground,:]
+
+    labels = intersect_rows(data_dup, data)
     labels[i_data] = y_pred_ground
     #except ValueError as e:
     #    print("Skipping classification update. ")
