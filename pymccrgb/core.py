@@ -393,6 +393,8 @@ def svm_color_classify(
     data,
     n_train = 1E5,
     seed = None,
+    use_las_codes=False,
+    verbose = False,
     **pipeline_kwargs
 ):
     """ Classifies ground points using the the color SVM classifier
@@ -424,12 +426,14 @@ def svm_color_classify(
 
     try:
         X = calculate_color_features(training_data)
+        i = np.all(np.isfinite(X), axis = 1)
         X_train, y_train = equal_sample(
-            X, training_labels, size=int(n_train / 2), seed=seed
+            X[i == True], training_labels[i == True], size=int(n_train / 2), seed=seed
                     )
         pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
         X_data = calculate_color_features(data)
+        i_data = np.where(np.all(np.isfinite(X_data)))
         if n_jobs > 1 or n_jobs == -1:
             if verbose:
                 print(f"Predicting in parallel using {n_jobs}")
@@ -438,11 +442,12 @@ def svm_color_classify(
 
             pool = Parallel(n_jobs=n_jobs)
             wrapper = delayed(pipeline.predict)
-            result = pool(wrapper(x.reshape(1, -1)) for x in X_data)
+            result = pool(wrapper(x.reshape(1, -1)) for x in X_data[i_data,:])
             y_pred_ground = np.array(result).ravel()
         else:
-            y_pred_ground = pipeline.predict(X_data)
-        labels = y_pred_ground == 1
+            y_pred_ground = pipeline.predict(X_data[i_data,:])
+        labels = zeros((data.shape[0],1))
+        labels[i_data] = 1
     except ValueError as e:
         print("Skipping classification update. ")
         print("ValueError: " + str(e))
