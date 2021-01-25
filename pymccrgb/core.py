@@ -455,9 +455,10 @@ def svm_color_classify(
     else:
         y_pred_ground = pipeline.predict(X_data)
 
-    print(np.sum(y_pred_ground))
-    data_dup = data_dup[y_pred_ground,:]
+    ground = y_pred_ground == 1
 
+    data_dup = data_dup[ground,:]
+    print(np.sum(ground))
     labels = intersect_rows(data_dup, data)
     #except ValueError as e:
     #    print("Skipping classification update. ")
