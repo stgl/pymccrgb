@@ -437,11 +437,10 @@ def svm_color_classify(
     pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
     X_data = calculate_color_features(data)
-    i_data = np.where(np.all(np.isfinite(X_data)))
 
     print('X_train', X_train)
     print('y_train', y_train)
-    print('data', X_data[i_data,:])
+    print('data', X_data)
 
     if n_jobs > 1 or n_jobs == -1:
         if verbose:
@@ -451,10 +450,10 @@ def svm_color_classify(
 
         pool = Parallel(n_jobs=n_jobs)
         wrapper = delayed(pipeline.predict)
-        result = pool(wrapper(x.reshape(1, -1)) for x in X_data[i_data,:])
+        result = pool(wrapper(x.reshape(1, -1)) for x in X_data)
         y_pred_ground = np.array(result).ravel()
     else:
-        y_pred_ground = pipeline.predict(X_data[i_data,:])
+        y_pred_ground = pipeline.predict(X_data)
     labels[i_data] = y_pred_ground
     #except ValueError as e:
     #    print("Skipping classification update. ")
