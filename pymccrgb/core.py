@@ -396,6 +396,7 @@ def svm_color_classify(
     n_jobs=1,
     use_las_codes=False,
     verbose = False,
+    color_model = None,
     **pipeline_kwargs
 ):
     """ Classifies ground points using the the color SVM classifier
@@ -426,21 +427,21 @@ def svm_color_classify(
     """
 
     #try:
-    X = calculate_color_features(training_data)
+    X = calculate_color_features(training_data, color_model=color_model)
     mask = np.isfinite(X).all(axis=-1)
     x = training_data[mask, :]
-    X = calculate_color_features(x)
+    X = calculate_color_features(x, color_model=color_model)
     y = training_labels[mask]
     X_train, y_train = equal_sample(
         X, y, size=int(n_train / 2), seed=seed
                 )
     pipeline = make_sgd_pipeline(X_train, y_train, **pipeline_kwargs)
 
-    X_data = calculate_color_features(data)
+    X_data = calculate_color_features(data, color_model=color_model)
     mask_data = np.isfinite(X_data).all(axis=-1)
     data_dup = copy(data)
     data_dup = data_dup[mask_data, :]
-    X_data = calculate_color_features(data_dup)
+    X_data = calculate_color_features(data_dup, color_model=color_model)
 
     if n_jobs > 1 or n_jobs == -1:
         if verbose:
