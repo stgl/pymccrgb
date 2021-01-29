@@ -8,6 +8,7 @@ import pdal
 DEFAULT_COLUMN_INDICES = range(6)
 DEFAULT_COLUMN_NAMES = ["X", "Y", "Z", "Red", "Green", "Blue"]
 DEFAULT_HEADER = "X,Y,Z,Red,Green,Blue"
+DEFAULT_TYPES = [np.float64, np.float64, np.float64, np.uint16, np.uint16, np.uint16]
 
 
 def read_data(filename, usecols=None, userows=None, nrows=None):
@@ -178,19 +179,19 @@ def write_las(arr, filename):
     write_pdal(arr, filename, writer="writers.las")
 
 
-def write_pdal(arr, filename, writer, header=DEFAULT_HEADER):
-    np.savetxt("temp.csv", arr, header=header, delimiter=",", comments="")
+def write_pdal(arr, filename, writer, header=DEFAULT_HEADER, types=DEFAULT_TYPES):
+    data = np.ndarray(arr.shape[0], dtype = [(col, type) for (col, type) in zip(header.split(','), types)])
+    for r in range(len(header.split(','))):
+        data[header.split(',')[r]] = arr[:,r].astype(types[r])
 
     json = (
-        '{"pipeline": [{"type": "readers.text", "filename": "temp.csv"}, {"type": "'
+        '{"pipeline": [{"type": "'
         + writer
         + '", "filename": "'
         + filename
         + '"}]}'
     )
-    pipeline = pdal.Pipeline(json)
+    pipeline = pdal.Pipeline(json, arrays = [data])
     pipeline.validate()
     pipeline.loglevel = 0
     _ = pipeline.execute()
-
-    os.remove("temp.csv")
